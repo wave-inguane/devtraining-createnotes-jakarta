@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>false</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>active</field>
+        <global>true</global>
+        <messages/>
+        <name>UnitTESTBuffer</name>
+        <order/>
+        <script><![CDATA[function onLoad() {
+   //Type appropriate comment here, and begin script below
+   
+}
+
+/*
+Question: Why did you have to reload the page to see the updates to the record in the Notes List widget?
+Answer: The Server Script was able to successfully update the Note record in the database but the Notes List widget had no way of knowing about the change. That is to say, the change was not emitted.
+Question: How can I see a Challenge solution?
+Answer: Any set of requirements can be solved in many ways. There is a working solution in the devtraining-createnotes-jakarta repository. To see the solution:
+Save your work to the GitHub repository.
+In Studio, open the Source Control menu and select the Commit Changes menu item.
+Add a Commit Message of your choice.
+Click the Commit Changes button.
+In Studio, open the Source Control menu and select the Create Branch menu item.
+For the Branch Name, use the name of your choice such as UpdateNotesChallengeSolution.
+In the Create from Tag field, choose Solution_UpdateNotes_WithChallenge then click the Create Branch button.
+The changes to the code for both widgets is commented. You will see code changes in:
+Notes Body Widget: Client Script, Server Script
+Notes List Widget: Client Script
+*/
+
+/*
+// Notes Body
+//........................................
+// HTML Template
+//........................................
+	<div class="panel panel-default" ng-show="c.data.noteID">
+	  <div class="panel-heading clearfix">
+	    <div class="row">
+	      <div class="col-md-12">
+	        <input class="form-control" id="note-title" ng-model="c.data.title" ng-change="c.updateNote('title')" ng-model-options="{debounce: 1000}"/>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel-body">
+	    <textarea class="form-control" id="note-body" ng-model="c.data.note" ng-change="c.updateNote('body')" ng-model-options="{debounce: 1000}" ></textarea>
+	  </div>
+	</div>
+
+
+//........................................
+// Client Script
+//........................................
+function($scope,$rootScope) {
+	// widget controller 
+	var c = this;
+
+	$rootScope.$on('selectNote', function(event,data) {
+		c.server.get({
+			action: 'getNote',
+			noteID: $rootScope.noteID
+		}).then(function(r) {
+			c.data.title = r.data.note.title;
+			c.data.note = r.data.note.note;
+			c.data.noteID = r.data.note.sys_id;
+		});
+	});
+
+	c.updateNote = function(updateType) {
+		c.server.get({
+			action: 'updateNote',
+			noteID: c.data.noteID,
+			noteBody: c.data.note,
+			noteTitle: c.data.title
+		}).then(function(r) {
+			// When the promise is returned, emit the change
+			if (updateType == 'title' || updateType == 'body') { 
+				$rootScope.$emit('updateTitle', r.data); 
+			}
+		});
+	}
+}
+
+
+
+//........................................
+// Server Script
+//........................................
+(function() {
+
+	if (input && input.noteID) {
+		var note = new GlideRecord('x_snc_createnotes_note');
+		if (note.get(input.noteID)) {
+			if (input.action == 'getNote') {
+						data.note = {};
+						$sp.getRecordValues(data.note, note, "title, note, sys_id");
+			}
+			else if (input.action == 'updateNote') { 
+				note.title = input.noteTitle; 
+				note.note = input.noteBody; 
+				note.update(); 
+				// Need to update the data object with the new title
+				// and first 20 characters of the note (do not want to write huge
+				// strings to the Notes List widget)
+				data.title = note.getValue('title');
+				data.note = note.getValue('note').slice(0,20);
+			}
+		}
+	}
+})();
+
+
+//Notes List
+//........................................
+// HTML Template
+//........................................
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">
+      ${Notes}
+    </h3>
+  </div>
+  <div class="list-group">
+    <a class="list-group-item" ng-click="c.selectItem($index)" ng-repeat="note in data.notes">
+      <h4 class="list-group-item-heading">
+        {{note.title}}
+      </h4>
+      <p class="list-group-item-text">
+        {{note.note}}
+      </p>
+    </a>
+  </div>
+</div>
+
+//........................................
+// Client Script
+//........................................
+function($rootScope,$scope) {
+	// widget controller 
+	var c = this;
+	// Use a position indicator to know which record to update
+	c.notePos = 0;
+
+	c.selectItem = function(idx) {  
+		// Set the position indicator to the index value passed in on select
+		c.notePos = idx;
+		var id = c.data.notes[idx].sys_id;
+		console.log('Note ID: ' + id);
+		$rootScope.noteID = id;
+		$rootScope.$emit('selectNote', id);
+	}
+  // Subscribe to event.  Set the new title and note values on the 
+	// c.data object
+	$rootScope.$on('updateTitle', function(event,data) { 
+		console.log("updateTitle event received: " + event);
+		console.log(data);
+		c.data.notes[c.notePos].title = data.title;
+		c.data.notes[c.notePos].note = data.note;
+	});
+	
+}
+
+
+//........................................
+// Server Script
+//........................................
+(function() {
+	
+	data.notes = [];
+	var noteGR = new GlideRecord('x_snc_createnotes_note');
+	noteGR.addQuery('user', gs.getUser().getID());
+	noteGR.orderByDesc('sys_created_on');
+	noteGR.query();
+	while (noteGR.next()) {
+		var noteObj = {};
+		
+		$sp.getRecordDisplayValues(noteObj, noteGR, 'number,title,sys_id');
+		
+		noteObj.note = noteGR.getValue('note').slice(0,20);
+		
+		data.notes.push(noteObj);
+	}
+})();
+*/]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-19 22:02:07</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>6c9af5cb4f0f03003b564ea18110c793</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>UnitTESTBuffer</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sys_script_client_6c9af5cb4f0f03003b564ea18110c793</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-19 22:02:07</sys_updated_on>
+        <table>incident</table>
+        <type>onLoad</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>
