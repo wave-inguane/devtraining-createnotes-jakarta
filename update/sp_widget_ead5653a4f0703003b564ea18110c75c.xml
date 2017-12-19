@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[/*----------------------------------------------------------------------------------
+DEVELOPER TIP: Avoid the use of $rootScope.$broadcast() 
+because it can cause performance issues.
+
+Parent of all scopes, $rootScope.
+----------------------------------------------------------------------------------*/
+function($rootScope,$scope) {
+	/* widget controller */
+	//Using AngularJS Events with Widgets
+	//Emit and Respond to Events
+	//In this exercise, you will emit an event from the Notes List widget to the Notes 
+	//Body widget when a user selects a record. The Notes Body widget will respond to 
+	//the event by displaying record information.
+	var c = this;
+	c.selectItem = function(idx) {
+		var id = c.data.notes[idx].sys_id;
+		console.log('Note ID: ' + id);
+		$rootScope.noteID = id; //make it available to 
+		//other widgets
+		$rootScope.$emit('selectNote', id);
+	}
+}
+
+
+/*
+.....................................................................................
+function() {
+	// widget controller 
+	var c = this;
+	//Using AngularJS Events with Widgets
+}
+*/
+
+
+/*
+======================================================================================
+	//var baseUrl = window.location.origin;
+
+	//build the link 
+	//var sysID = c.data.notes[0].sys_id;
+	//var sysID = c.data.notes;
+	//var info = "";
+
+	var sysID = 0;
+	for(var property in c.data.notes){
+		//info += 'c.data.' + property + ": " + c.data.notes[property].sys_id + "\n";
+
+
+		if(c.data.notes[property].note == "note 3 - Mike"){
+			sysID =  c.data.notes[property].sys_id;
+			break;
+		}
+	}
+
+	//Build URL and FireUP
+	//alert(sysID );//9e1c1df24f0703003b564ea18110c7b0
+
+*/
+
+
+/*
+======================================================================================
+Client-side Debugging
+The client-side Widget API includes methods which can be used for logging/debugging:
+
+spUtil.addErrorMessage()
+spUtil.addInfoMessage()
+spUtil.addTrivialMessage()
+spModal.alert();
+
+for(var property in c.data){
+		console.log('c.data.' + property + ": " + c.data[property]);
+	}
+*/]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>notes_list</id>
+        <internal>false</internal>
+        <link/>
+        <name>Notes List</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+	/*
+	/app.do#!/training/article/app_store_learnv2_serviceportal_jakarta_creating_custom_widgets/app_store_learnv2_serviceportal_jakarta_creating_custom_widget_objectives?v=jakarta
+	
+	https://developer.servicenow.com/app.do#!/api_doc?v=jakarta&id=c_GlideSPScriptableScopedAPI
+	*/
+	/*
+	 Create the notes property on the data object which will contain an array of objects
+   Query the database to find all Note table records for the currently logged in user
+   Sort the records by descending order based on the sys_created_on date field value
+   For each of the Note records returned
+   Create an empty object, noteObj
+   Get the display values for the number, title, and sys_id fields and put those values into the noteGR object
+   Get the first 20 characters of the description field and add that value to the noteObj object
+   Push the noteObj into the notes array
+	*/
+
+	//create an array to populate without notes
+	data.notes = [];
+	var noteGR = new GlideRecord('x_snc_createnotes_note');
+	//noteGR.addQuery('user', gs.getUser().getID());
+	//noteGR.orderByDesc('sys_created_on');
+	noteGR.setLimit(3);
+	noteGR.orderBy('sys_created_on');
+	noteGR.query();
+	while (noteGR.next()) {
+		
+		var noteObj = {};
+		//use service portal helper method to get some display values
+		$sp.getRecordDisplayValues(noteObj, noteGR, 'number, title, sys_id');
+		//get the first 20 characters of the description 
+		 noteObj.note = noteGR.getValue('note').slice(0,20);
+		//push the populated obj into the array
+		data.notes.push(noteObj);
+	}
+})();
+
+/*
+Server-side Debugging
+The server-side GlideSystem class includes methods which can be used for logging/debugging:
+
+gs.log() - Global API
+gs.logError() - Global API
+gs.logWarning() - Global API
+gs.warn() - Scoped API
+gs.info() - Scoped API
+gs.debug() - Scoped API
+gs.error() - Scoped API
+gs.addInfoMessage() - Scoped API and Global API
+gs.addErrorMessage() - Scoped API and Global API
+*/
+
+/*
+ in the Preview pane, <ctrl> + click on the Notes List widget and select the Log to console: $scope.data menu item.
+*/
+
+/*
+nav_to.do?uri=%2Fsp_portal_list.do%3Fsysparm_userpref_module%3D7307d93147032100ba13a5554ee490eb%26sysparm_clear_stack%3Dtrue
+
+3rd party debugging applications like ng-inspector Chrome extension
+https://chrome.google.com/webstore/detail/ng-inspector-for-angularj/aadgmnobpdmgmigaicncghmmoeflnamj?hl=en
+
+https://developer.servicenow.com/app.do#!/api_doc?v=jakarta&id=c_GlideSPScriptableScopedAPI
+https://docs.angularjs.org/guide/directive
+https://docs.angularjs.org/api/ngSanitize/filter/linky
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2017-12-19 01:50:30</sys_created_on>
+        <sys_id>ead5653a4f0703003b564ea18110c75c</sys_id>
+        <sys_mod_count>76</sys_mod_count>
+        <sys_name>Notes List</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_ead5653a4f0703003b564ea18110c75c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2017-12-19 20:07:48</sys_updated_on>
+        <template><![CDATA[<!-- https://<your_instance>.service-now.com/notes?id=notes_home -->
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">
+      ${Notes}
+    </h3>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+      <a class="list-group-item" ng-click="c.selectItem($index)" ng-repeat="mynote in data.notes">
+        <h4 class="list-group-item-heading">
+          {{mynote.title}}
+        </h4>
+        <p class="list-group-item-text">
+          ${Number: }{{ mynote.number}}
+        </p>
+        <p class="list-group-item-text">
+          ${sysID: } {{ mynote.sys_id}}
+        </p>
+        <p class="list-group-item-text">
+          ${Note: } {{ mynote.note}}
+        </p>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Output an object to the portal page by modifying the HTML Template -->
+<!-- <pre>{{data | json}}</pre> -->
+
+<!--
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">
+      ${Notes}
+    </h3>
+  </div>
+  <div class="panel-body">
+    <div class="list-group">
+      <a class="list-group-item" ng-repeat="mynote in data.notes">
+        <h4 class="list-group-item-heading">
+          {{mynote.title}}
+        </h4>
+        <p class="list-group-item-text">
+          ${Number: }{{ mynote.number}}
+        </p>
+        <p class="list-group-item-text">
+          ${sysID: } {{ mynote.sys_id}}
+        </p>
+        <p class="list-group-item-text">
+          ${Note: } {{ mynote.note}}
+        </p>
+      </a>
+    </div>
+  </div>
+</div>
+-->
+
+
+
+<!--
+<div class="panel panel-default">
+<div class="panel-heading clearfix">
+<h3 class="panel-title pull-left">
+${Notes}
+</h3>
+</div>
+<div class="panel-body">
+<p>
+Notes list widget
+</p>
+</div>
+</div>
+-->
+
+]]></template>
+    </sp_widget>
+</record_update>
