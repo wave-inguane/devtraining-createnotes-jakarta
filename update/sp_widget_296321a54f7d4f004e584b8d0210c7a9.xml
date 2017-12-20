@@ -54,11 +54,11 @@
         <docs/>
         <field_list/>
         <has_preview>true</has_preview>
-        <id>notes_list</id>
+        <id>notes-list</id>
         <internal>false</internal>
         <link/>
         <name>Notes List</name>
-        <option_schema/>
+        <option_schema>[{"hint":"Specify a title for the Notes List widget","name":"title","default_value":"Notes","label":"Title","type":"string"},{"hint":"Select the maximum number of records to display","name":"maximum_records_to_display","default_value":"5","label":"Maximum records to display","type":"choice","choices":[{"label":"2 ","value":"2 "},{"label":"3 ","value":"3 "},{"label":"5 ","value":"5 "},{"label":"7 ","value":"7 "},{"label":"11","value":"11"},{"label":"13 ","value":"13 "},{"label":"17","value":"17"}]}]</option_schema>
         <public>false</public>
         <roles/>
         <script><![CDATA[(function() {
@@ -68,8 +68,9 @@
 	//var userID = gs.getUser().getID();
 	//gs.addInfoMessage("User: "+ userID );
 	//noteGR.addQuery('user', userID);
-	noteGR.orderByDesc('sys_created_on');
+	//noteGR.orderByDesc('sys_created_on');
 	noteGR.orderBy('sys_created_on');
+	noteGR.setLimit(options.maximum_records_to_display);
 	noteGR.query();
 	while (noteGR.next()) {
 		var noteObj = {};
@@ -96,17 +97,18 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-10-14 01:08:53</sys_created_on>
         <sys_id>296321a54f7d4f004e584b8d0210c7a9</sys_id>
-        <sys_mod_count>31</sys_mod_count>
+        <sys_mod_count>37</sys_mod_count>
         <sys_name>Notes List</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_296321a54f7d4f004e584b8d0210c7a9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-20 02:34:41</sys_updated_on>
+        <sys_updated_on>2017-12-20 17:28:09</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">
+      {{::c.options.title}}
       ${Notes}
     </h3>
     <button class="btn btn-default pull-right" ng-click="c.newNote()"> 
