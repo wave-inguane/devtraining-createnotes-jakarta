@@ -14,7 +14,7 @@ spAriaUtil: Uses an AngularJS service to show messages on a screen reader.
 function($rootScope,$scope, spUtil) {
 	/* widget controller */
 	var c = this;
-	
+
 	spUtil.addInfoMessage("NotesList widget");
 	// Use a position indicator to know which record to update
 	c.notePos = 0;
@@ -25,19 +25,38 @@ function($rootScope,$scope, spUtil) {
 		var id = c.data.notes[idx].sys_id;
 		console.log('Note ID: ' + id);
 		$rootScope.noteID = id;
-		$rootScope.$emit('selectNote', id);
+		$rootScope.$emit('selectNote', id);// Send an event up the scope hierarchy
 	}
-  // Subscribe to event.  Set the new title and note values on the 
+	// Subscribe to event.  Set the new title and note values on the 
 	// c.data object
-	$rootScope.$on('updateTitle', function(event,data) { 
+	$rootScope.$on('updateTitle', function(event,data) { //Listen for events of a given type
 		console.log("updateTitle event received: " + event);
 		console.log(data);
 		c.data.notes[c.notePos].title = data.title;
 		c.data.notes[c.notePos].note = data.note;
 	});
-	
-}
 
+}
+	//--------------------------------------------------
+	// debugging strategies
+	//--------------------------------------------------
+/*
+======================================================================================
+Client-side Debugging
+The client-side Widget API includes methods which can be used for logging/debugging:
+
+spUtil.addErrorMessage()
+spUtil.addInfoMessage()
+spUtil.addTrivialMessage()
+spModal.alert();
+
+for(var property in c.data){
+		console.log('c.data.' + property + ": " + c.data[property]);
+	}
+	
+3rd party debugging applications like:
+ng-inspector Chrome extension
+*/
 
 /*
 .....................................................................................
@@ -75,20 +94,7 @@ function() {
 */
 
 
-/*
-======================================================================================
-Client-side Debugging
-The client-side Widget API includes methods which can be used for logging/debugging:
-
-spUtil.addErrorMessage()
-spUtil.addInfoMessage()
-spUtil.addTrivialMessage()
-spModal.alert();
-
-for(var property in c.data){
-		console.log('c.data.' + property + ": " + c.data[property]);
-	}
-*/]]></client_script>
+]]></client_script>
         <controller_as>c</controller_as>
         <css/>
         <data_table>sp_instance</data_table>
@@ -99,13 +105,20 @@ for(var property in c.data){
         <has_preview>true</has_preview>
         <id>notes_list</id>
         <internal>false</internal>
-        <link/>
+        <link><![CDATA[/*
+https://developer.servicenow.com/app.do#!/api_doc?v=jakarta&id=c_GlideSPScriptableScopedAPI
+https://developer.servicenow.com/app.do#!/api_doc?v=jakarta&id=c_GlideSPScriptableScopedAPI
+
+
+
+*/]]></link>
         <name>Notes List</name>
         <option_schema/>
-        <public>false</public>
+        <public>true</public>
         <roles/>
         <script><![CDATA[(function() {
 
+	//  Create the notes property on the data object which will contain an array of objects
 	data.notes = [];
 	var noteGR = new GlideRecord('x_snc_createnotes_note');
 	//noteGR.addQuery('user', gs.getUser().getID());
@@ -119,11 +132,30 @@ for(var property in c.data){
 		$sp.getRecordDisplayValues(noteObj, noteGR, 'number,title,sys_id');
 
 		noteObj.note = noteGR.getValue('note').slice(0,20);
+		//--------------------------------------------------
+		// debugging strategies
+		//--------------------------------------------------
+		//gs.info("SP - Notes List Model : {0}", noteObj.note);
 
 		data.notes.push(noteObj);
 	}
 })();
-
+// Debugging tool
+//gs.info("SP - Notes List Model : {0}", noteObj.note);
+// https://developer.servicenow.com/app.do#!/training/article/app_store_learnv2_serviceportal_jakarta_creating_custom_widgets/app_store_learnv2_serviceportal_jakarta_debugging_widgets?v=jakarta
+/*
+The server-side GlideSystem class includes methods which can be used for logging/debugging:
+// https://developer.servicenow.com/app.do#!/api_doc?v=jakarta&id=c_GlideSPScriptableScopedAPI
+gs.log() - Global API
+gs.logError() - Global API
+gs.logWarning() - Global API
+gs.warn() - Scoped API
+gs.info() - Scoped API
+gs.debug() - Scoped API
+gs.error() - Scoped API
+gs.addInfoMessage() - Scoped API and Global API
+gs.addErrorMessage() - Scoped API and Global API
+*/
 
 /*
 (function() {
@@ -200,7 +232,27 @@ https://docs.angularjs.org/api/ngSanitize/filter/linky
 
 
 
+/*
+//Server script
+data.items = [];
+data.userName = gs.getUserDisplayName();
+var gr = new GlideRecord("sc_cat_item");
+gr.query();
+while(gr.next() && data.items.length < 10) {
+    if ($sp.canReadRecord(gr)) {
+        data.items.push(gr.getDisplayValue("name"));
+    }
+}
 
+//HTML template
+<div class="panel panel-default">
+    <div class="panel-heading">Hi, {{c.data.userName}}!</div>
+    <div class="panel-body">
+        Here are some things you can order:
+        <ul><li ng-repeat="item in c.data.items">{{item}}</li></ul>
+    </div>
+</div>
+*/
 
 
 
@@ -214,14 +266,14 @@ https://docs.angularjs.org/api/ngSanitize/filter/linky
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-12-19 01:50:30</sys_created_on>
         <sys_id>ead5653a4f0703003b564ea18110c75c</sys_id>
-        <sys_mod_count>88</sys_mod_count>
+        <sys_mod_count>110</sys_mod_count>
         <sys_name>Notes List</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_ead5653a4f0703003b564ea18110c75c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-19 23:01:05</sys_updated_on>
+        <sys_updated_on>2018-01-02 17:09:44</sys_updated_on>
         <template><![CDATA[<!-- https://dev25300.service-now.com/notes?id=notes_home -->
 <!--
 https://developer.servicenow.com/app.do#!/training/article/app_store_learnv2_serviceportal_jakarta_creating_custom_widgets/app_store_learnv2_serviceportal_jakarta_using_the_client_side_widget_api?v=jakarta

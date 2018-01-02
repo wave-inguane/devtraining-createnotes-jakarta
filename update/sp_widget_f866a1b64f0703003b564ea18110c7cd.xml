@@ -4,28 +4,44 @@
         <client_script><![CDATA[function($scope,$rootScope) {
 	/* widget controller */
 	var c = this;
-
+	//---------------------------------------------------
+	//Listent to selected note
+	//---------------------------------------------------
 	$rootScope.$on('selectNote', function(event,data) {
+		// NoteID was sent from List Notes widget
+		console.log('Listener caught NoteID: ' + $rootScope.noteID);
+
+		// get the selected record’s field values from the server
+		// to display in the Notes Body Widget
+
+		// this.server.get() calls the Server script and passes custom input
+		// input = {action: '', noteID: ''}
 		c.server.get({
 			action: 'getNote',
 			noteID: $rootScope.noteID
-		}).then(function(r) {
-			c.data.title = r.data.note.title;
-			c.data.note = r.data.note.note;
-			c.data.noteID = r.data.note.sys_id;
+		}).then(function(result) {
+			c.data.title = result.data.note.title;
+			c.data.note = result.data.note.note;
+			c.data.noteID = result.data.note.sys_id;
 		});
 	});
 
+	//-----------------------------------------------------
+	//	Make an update and notify the all
+	//-----------------------------------------------------
 	c.updateNote = function(updateType) {
+
+		// call the Server script and passes custom input
+		// input = {action: '', noteID: '', ...}
 		c.server.get({
 			action: 'updateNote',
 			noteID: c.data.noteID,
 			noteBody: c.data.note,
 			noteTitle: c.data.title
-		}).then(function(r) {
+		}).then(function(result) {
 			// When the promise is returned, emit the change
 			if (updateType == 'title' || updateType == 'body') { 
-				$rootScope.$emit('updateTitle', r.data); 
+				$rootScope.$emit('updateTitle', result.data); //NotifyAll
 			}
 		});
 	}
@@ -95,21 +111,29 @@ For the complete API documentation, including method arguments and return values
 
 	if (input && input.noteID) {
 		var note = new GlideRecord('x_snc_createnotes_note');
-		if (note.get(input.noteID)) {
+		if (note.get(input.noteID))//if true the record exist
+		{
 			if (input.action == 'getNote') {
-						data.note = {};
-						$sp.getRecordValues(data.note, note, "title, note, sys_id");
+				data.note = {};
+				$sp.getRecordValues(data.note, note, "title, note, sys_id");
+				// result = {};
+				// result.data = data.note;
+				// return result;
 			}
-			else if (input.action == 'updateNote') { 
-				note.title = input.noteTitle; 
-				note.note = input.noteBody; 
-				note.update(); 
-				// Need to update the data object with the new title
-				// and first 20 characters of the note (do not want to write huge
-				// strings to the Notes List widget)
-				data.title = note.getValue('title');
-				data.note = note.getValue('note').slice(0,20);
-			}
+			else 
+				if (input.action == 'updateNote') { 
+					note.title = input.noteTitle; 
+					note.note = input.noteBody; 
+					note.update(); 
+					// Need to update the data object with the new title
+					// and first 20 characters of the note (do not want to write huge
+					// strings to the Notes List widget)
+					data.title = note.getValue('title');
+					data.note = note.getValue('note').slice(0,20);
+					// result = {};
+					// result.data = data;
+					// return result;
+				}
 		}
 	}
 })();
@@ -157,14 +181,14 @@ For the complete API documentation, including method arguments and return values
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-12-19 01:52:51</sys_created_on>
         <sys_id>f866a1b64f0703003b564ea18110c7cd</sys_id>
-        <sys_mod_count>16</sys_mod_count>
+        <sys_mod_count>29</sys_mod_count>
         <sys_name>Notes Body</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_f866a1b64f0703003b564ea18110c7cd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-19 21:45:52</sys_updated_on>
+        <sys_updated_on>2018-01-02 19:03:33</sys_updated_on>
         <template><![CDATA[<!-- https://<your_instance>.service-now.com/notes?id=notes_home -->
 
 	<div class="panel panel-default" ng-show="c.data.noteID">
