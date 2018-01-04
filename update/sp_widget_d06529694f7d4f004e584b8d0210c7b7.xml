@@ -8,6 +8,10 @@ function($scope,$rootScope,spModal,spUtil) {
 	/* widget controller */
 	var c = this;
 
+
+	//-------------------------------------------------
+	//
+	//-------------------------------------------------
 	$rootScope.$on('selectNote', function(event,data) {
 		c.server.get({
 			action: 'getNote',
@@ -19,6 +23,10 @@ function($scope,$rootScope,spModal,spUtil) {
 		});
 	});
 
+
+	//-------------------------------------------------
+	//
+	//-------------------------------------------------
 	c.updateNote = function(updateType) {
 		c.server.get({
 			action: 'updateNote',
@@ -33,10 +41,14 @@ function($scope,$rootScope,spModal,spUtil) {
 		});
 	}
 
+
+	//-------------------------------------------------
+	//
+	//-------------------------------------------------
 	c.deleteNote = function() {
 		c.server.get({
 			action: 'deleteNote',
-			noteID: c.data.noteID
+			noteID: c.data.noteID //sys_id
 		}).then(function(r) {
 			spUtil.addTrivialMessage("The "+ c.data.title + " record has been deleted.");
 			$rootScope.$emit('deleteNote', c.data.noteID);
@@ -47,6 +59,10 @@ function($scope,$rootScope,spModal,spUtil) {
 		});
 	}
 
+
+	//-------------------------------------------------
+	//
+	//-------------------------------------------------
 	c.confirmDelete = function(){
 		spModal.confirm("Are you sure you want to delete this Note record?")
 			.then(function(confirmed){
@@ -84,24 +100,34 @@ https://developer.servicenow.com/app.do#!/lp/servicenow_application_developer/ap
 	if (input && input.noteID) {
 		var note = new GlideRecord('x_snc_createnotes_note');
 		if (note.get(input.noteID)) {
+			//-------------------------------------------------
+			//
+			//-------------------------------------------------
 			if (input.action == 'getNote') {
 				data.note = {};
 				$sp.getRecordValues(data.note, note, "title, note, sys_id");
 			}
-			else if (input.action == 'updateNote') { 
-				note.title = input.noteTitle; 
-				note.note = input.noteBody; 
-				note.update(); 
-				// Need to update the data object with the new title
-				// and first 20 characters of the note (do not want to write huge
-				// strings to the Notes List widget)
-				data.title = note.getValue('title');
-				data.note = note.getValue('note').slice(0,20);
-			}
-
-			else if (input.action == 'deleteNote') { 
-				note.deleteRecord(); 
-			}
+			//-------------------------------------------------
+			//
+			//-------------------------------------------------
+			else 
+				if (input.action == 'updateNote') { 
+					note.title = input.noteTitle; 
+					note.note = input.noteBody; 
+					note.update(); 
+					// Need to update the data object with the new title
+					// and first 20 characters of the note (do not want to write huge
+					// strings to the Notes List widget)
+					data.title = note.getValue('title');
+					data.note = note.getValue('note').slice(0,20);
+				}
+			//-------------------------------------------------
+			//
+			//-------------------------------------------------
+			else 
+				if (input.action == 'deleteNote') { 
+					note.deleteRecord(); 
+				}
 		}
 	}
 })();]]></script>
@@ -110,14 +136,14 @@ https://developer.servicenow.com/app.do#!/lp/servicenow_application_developer/ap
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-10-14 01:17:32</sys_created_on>
         <sys_id>d06529694f7d4f004e584b8d0210c7b7</sys_id>
-        <sys_mod_count>47</sys_mod_count>
+        <sys_mod_count>53</sys_mod_count>
         <sys_name>Notes Body</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_d06529694f7d4f004e584b8d0210c7b7</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-21 17:48:18</sys_updated_on>
+        <sys_updated_on>2018-01-04 02:36:24</sys_updated_on>
         <template><![CDATA[
 <!-- https://developer.servicenow.com/app.do#!/lp/servicenow_application_developer/app_store_learnv2_serviceportal_jakarta_widget_api?v=jakarta -->
 <div class="panel panel-default" ng-show="c.data.noteID">
@@ -126,14 +152,16 @@ https://developer.servicenow.com/app.do#!/lp/servicenow_application_developer/ap
       <div class="col-md-11">
         <input class="form-control" id="note-title" ng-model="c.data.title" ng-change="c.updateNote('title')" ng-model-options="{debounce: 1000}"/>
       </div>
-      <!-- moved to deleteButtonConfirm directive
+      <!-- moved to deleteButtonConfirm directive 
       <div class="col-md-1"> 
         <button class="btn btn-danger pull-right" ng-click="c.confirmDelete()"> 
           <span class="glyphicon glyphicon-trash"></span> 
         </button> 
       </div>
 -->
+  
       <delete-button-confirm></delete-button-confirm>
+
     </div>
   </div>
   <div class="panel-body">

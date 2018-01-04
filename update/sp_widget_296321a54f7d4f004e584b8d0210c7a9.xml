@@ -7,6 +7,9 @@
 	// Use a position indicator to know which record to update
 	c.notePos = 0;
 
+	//---------------------------------------------------------------------
+	//
+	//--------------------------------------------------------------------
 	c.selectItem = function(idx) {  
 		// Set the position indicator to the index value passed in on select
 		c.notePos = idx;
@@ -15,14 +18,19 @@
 		$rootScope.noteID = id;
 		$rootScope.$emit('selectNote', id);
 	}
+
+	//-------------------------------------------------------------------
 	// Subscribe to event.  Set the new title and note values on the 
 	// c.data object
+	//-------------------------------------------------------------------
 	$rootScope.$on('updateTitle', function(event,data) { 
 		c.data.notes[c.notePos].title = data.title;
 		c.data.notes[c.notePos].note = data.note;
 	});
 
+	//--------------------------------------------------------------------
 	//user_inpute
+	//--------------------------------------------------------------------
 	c.newNote = function() {
 		c.server.get({
 			action: 'newNote'
@@ -37,12 +45,16 @@
 		});
 	}
 
+	//-------------------------------------------------------------------
+	//
+	//-------------------------------------------------------------------
 	$rootScope.$on('deleteNote', function(event,data) {
 		c.data.notes.splice($scope.notePos, 1);
-
 	});
 
+	//-------------------------------------------------------------------
 	// Record removed from data object on the client and passed to server
+	//-------------------------------------------------------------------
 	c.snNoteUpdate = function(name,sysID){
 
 		for (var i=0;i<c.data.notes.length;i++){
@@ -59,21 +71,38 @@
 		}
 	}
 
+	//-------------------------------------------------------------------------
 	// Record removed from data object on the server and passed back to client
+	//-------------------------------------------------------------------------
 	c.snNoteDelete = function(sysID){
 
 		c.server.get({
 			action: 'snDeleteNote',
 			noteID: sysID
-
 		}).then(function(r){
 			c.data.notes = r.data.notes;
 		});
 
 	}
-	
-	//name == event
-	//Listen to the servers db activities 
+
+	/*----------------------------------------------------------------------------------------------
+	Use the Client API method spUtil.recordWatch() to register a listener in a widget. 
+	The listener is notified when table records are inserted, deleted, or updated.
+
+	name: Returns information about the event that has occurred
+	data: Returns the data inserted or updated on the table
+
+	The recordWatch method is passed $scope, the name of the table to watch, and any filter condition.
+	filter condition = query condition hint use query builder right click and copy query
+
+	When changes meeting the filter condition are made to the table records, the callback function executes.
+	CRUD
+	C = insert         create
+	R = rename \____ 
+                     update
+	U = update /----   
+	D = delete         remove
+	-----------------------------------------------------------------------------------------------*/
 	spUtil.recordWatch($scope, "x_snc_createnotes_note", "numberANYTHING", function(name, data) {
 		console.log(name.data.operation); 
 		console.log(name); 
@@ -93,16 +122,12 @@
 			//c.server.refresh();
 		}
 
-
 		//Respond to the Record Insert
 		// Fast and easy... replace the client data object with the server data object
 		if(name.data.operation == "insert"){
 			c.server.refresh();
 		}
-
-
 	});
-
 
 }//End function($rootScope, $scope, spUtil) 
 ]]></client_script>
@@ -141,7 +166,10 @@
 		noteObj.note = noteGR.getValue('note').slice(0,20);
 		data.notes.push(noteObj);
 	}
-
+	
+	//---------------------------------------------------------------
+	//
+	//---------------------------------------------------------------
 	if (input) {
 		if (input.action == 'newNote') {
 			var newNote = new GlideRecord('x_snc_createnotes_note');
@@ -152,6 +180,9 @@
 			$sp.getRecordValues(data.newNote,newNote,"title,note,sys_id");
 		}
 
+		//-------------------------------------------------------------
+		//
+		//-------------------------------------------------------------
 		if (input.action == 'snDeleteNote') {
 			var delNote = new GlideRecord('x_snc_createnotes_note');
 			// The notes record should already be gone.  Just
@@ -168,14 +199,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-10-14 01:08:53</sys_created_on>
         <sys_id>296321a54f7d4f004e584b8d0210c7a9</sys_id>
-        <sys_mod_count>59</sys_mod_count>
+        <sys_mod_count>81</sys_mod_count>
         <sys_name>Notes List</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_296321a54f7d4f004e584b8d0210c7a9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-12-21 18:58:13</sys_updated_on>
+        <sys_updated_on>2018-01-04 05:09:50</sys_updated_on>
         <template><![CDATA[<!-- HomePage: https://dev25300.service-now.com/notes?id=notes_home
 Table: Pages []
 ID : notes_home
@@ -185,8 +216,8 @@ Title : CreateNotes Home
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">
+      <!-- ${Notes} -->
       {{::c.options.title}}
-      ${Notes}
     </h3>
     <button class="btn btn-default pull-right" ng-click="c.newNote()"> 
       <span class="glyphicon glyphicon-plus"></span> 
