@@ -1,6 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
     <sys_ui_list parent="" relationship="" sys_domain="global" table="sys_attachment" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>average_image_color</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>d7fd7bc34f7303003b564ea18110c78f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>compressed</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>dffd7bc34f7303003b564ea18110c78f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>content_type</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>53fd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>file_name</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>d3fd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>image_height</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>57fd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>image_width</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>d7fd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>size_bytes</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>5bfd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>size_compressed</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>7</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>dbfd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>table_name</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>5ffd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>table_sys_id</element>
+            <list_id display_value="sys_attachment" element="NULL" name="sys_attachment" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">dbfd7bc34f7303003b564ea18110c78e</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>9</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-26 14:20:47</sys_created_on>
+            <sys_id>dffd7bc34f7303003b564ea18110c790</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-26 14:20:47</sys_updated_on>
+        </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element/>
@@ -13,18 +163,18 @@
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-12-21 18:36:09</sys_created_on>
+            <sys_created_on>2018-03-17 03:48:20</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
-            <sys_id>013f576f4f8f43003b564ea18110c73e</sys_id>
+            <sys_id>b2bc0f8b4ff013003b564ea18110c7db</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>sys_attachment</sys_name>
-            <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+            <sys_name/>
+            <sys_package/>
             <sys_policy/>
             <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
-            <sys_update_name>sys_ui_list_sys_attachment_null</sys_update_name>
+            <sys_update_name/>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-12-21 18:36:09</sys_updated_on>
+            <sys_updated_on>2018-03-17 03:48:20</sys_updated_on>
             <sys_user display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</sys_user>
             <view display_value="Default view" name="NULL">Default view</view>
             <view_name/>

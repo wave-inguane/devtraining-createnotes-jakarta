@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($scope, $rootScope, $timeout, spUtil, spModal, $location, $window, nowAttachmentHandler, $log, spAriaUtil) {
+  /* widget controller */
+  var c = this;
+	
+		$scope.changePage = function() {
+		spModal.confirm("Are you sure you want to delete this attachment record?")
+			.then(function(confirmed){
+			if(confirmed){
+				$scope.server.get({
+					action: 'snDeleteNote'
+				}).then(function(r){
+					if(r.data.noteID){
+						window.location.href = baseUrl + "/admin?id=suser&table=x_smart_scholar_flat&sys_id=" +   r.data.smart_user_sysID   +"&view=sp";
+					}
+				});
+			}
+		});
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>safe-delete</id>
+        <internal>false</internal>
+        <link/>
+        <name>Safe Delete</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-03-09 07:44:58</sys_created_on>
+        <sys_id>20f57a6c4f3853003b564ea18110c7f8</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Safe Delete</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_20f57a6c4f3853003b564ea18110c7f8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-03-09 07:49:19</sys_updated_on>
+        <template><![CDATA[<div>
+<!-- your widget template -->
+</div>]]></template>
+    </sp_widget>
+</record_update>

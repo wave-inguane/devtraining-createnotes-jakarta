@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="deleteButtonConfirm">0819c6174f0743003b564ea18110c744</sp_angular_provider>
+        <sp_widget display_value="Note Body Clone">cb039a6a4f3303003b564ea18110c7a4</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-24 17:16:34</sys_created_on>
+        <sys_id>8f039a6a4f3303003b564ea18110c7a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>deleteButtonConfirm.Note Body Clone</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_8f039a6a4f3303003b564ea18110c7a6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-24 17:16:34</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

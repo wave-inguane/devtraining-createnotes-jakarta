@@ -104,8 +104,10 @@
 	D = delete         remove
 	-----------------------------------------------------------------------------------------------*/
 	spUtil.recordWatch($scope, "x_snc_createnotes_note", "numberANYTHING", function(name, data) {
-		console.log(name.data.operation); 
-		console.log(name); 
+		console.log("op : " + name.data.operation); 
+		console.log("Jeff : " + name.data); 
+		console.dir(name.data); 
+		//alert(name + ' ' + data)
 
 		//Respond to Record Update and Delete - Client Script
 
@@ -153,9 +155,9 @@
 
 	data.notes = [];
 	var noteGR = new GlideRecord('x_snc_createnotes_note');
-	//var userID = gs.getUser().getID();
-	//gs.addInfoMessage("User: "+ userID );
-	//noteGR.addQuery('user', userID);
+	var userID = gs.getUser().getID();
+	// gs.addInfoMessage("User : "+ userID);
+	noteGR.addQuery('user', userID);
 	//noteGR.orderByDesc('sys_created_on');
 	noteGR.orderBy('sys_created_on');
 	noteGR.setLimit(options.maximum_records_to_display);
@@ -166,6 +168,16 @@
 		noteObj.note = noteGR.getValue('note').slice(0,20);
 		data.notes.push(noteObj);
 	}
+	
+	//Logged in user:
+	/*
+	var grUser = new GlideRecord('sys_user');
+	grUser.addQuery('sys_id',userID );
+	grUser.query();
+	if(grUser.next()){
+		gs.addInfoMessage("User : "+ grUser.first_name);
+	}
+	*/
 	
 	//---------------------------------------------------------------
 	//
@@ -199,19 +211,36 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2017-10-14 01:08:53</sys_created_on>
         <sys_id>296321a54f7d4f004e584b8d0210c7a9</sys_id>
-        <sys_mod_count>81</sys_mod_count>
+        <sys_mod_count>101</sys_mod_count>
         <sys_name>Notes List</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_296321a54f7d4f004e584b8d0210c7a9</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-01-04 05:09:50</sys_updated_on>
+        <sys_updated_on>2018-03-07 21:17:59</sys_updated_on>
         <template><![CDATA[<!-- HomePage: https://dev25300.service-now.com/notes?id=notes_home
 Table: Pages []
 ID : notes_home
 Title : CreateNotes Home
 -->
+<div style="position:relative;min-width:960px">
+<a href="https://github.com/Nurdok/htmlify">
+  
+  <!--
+    <img style="position: absolute; top: 0; right: 0; border: 0;"
+     src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" 
+     alt="Fork me on GitHub">
+  -->
+  
+  <img style="position: absolute;right:0;top:0"
+     src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" 
+     alt="Fork me on GitHub">
+  
+</a>
+</div>
+
+
 <!-- https://developer.servicenow.com/app.do#!/lp/servicenow_application_developer/app_store_learnv2_serviceportal_jakarta_widget_api?v=jakarta -->
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
@@ -219,9 +248,12 @@ Title : CreateNotes Home
       <!-- ${Notes} -->
       {{::c.options.title}}
     </h3>
+    
+    <!-- on click create a new record -->
     <button class="btn btn-default pull-right" ng-click="c.newNote()"> 
       <span class="glyphicon glyphicon-plus"></span> 
     </button>
+    
   </div>
   <div class="panel-body"> 
     <input placeholder="Filter" class="form-control" ng-model="noteFilter" /> 

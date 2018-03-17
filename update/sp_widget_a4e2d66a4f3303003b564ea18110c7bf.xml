@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($rootScope, $scope, spUtil) {
+	/* widget controller */
+	var c = this;
+	//--------------------------------------------------------------------------------
+	// Prepare the record to insert ne user
+	//--------------------------------------------------------------------------------
+	c.newRec = function() {
+		c.server.get({
+			action: 'newRec'
+		}).then(function(r) {
+			// save newly created unique sys_id
+			c.data.recID = r.data.recID;
+		});
+	}
+
+	//--------------------------------------------------------------------------------
+	// Update newly created record based on the unique sys_id
+	//--------------------------------------------------------------------------------
+	$scope.addUser = function (userDetails) {
+		
+		//  this line of code is just for debigging use
+		$scope.message = userDetails.name + " ( " + userDetails.email + " ) ( " + userDetails.agreed + " ) ";
+		//spUtil.addInfoMessage($scope.message);
+		
+		c.newRec();// get sys_id
+
+		//call the server and update this newly created sys_id
+		spUtil.addInfoMessage(c.data.recID);
+		c.server.get({
+			action: 'updateNewRec',
+			newRecID: c.data.recID,
+			fullName: userDetails.name,
+			userEmail: userDetails.email 
+			// add more fields ..
+			
+		}).then(function(r) {
+			// used to updated the view if needed
+			//r.data 
+		});
+	}
+
+	$scope.message = "Ready";
+
+}//End function($rootScope, $scope, spUtil) 
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>h3.panel-title {
+  font-size:20px;
+  padding-top:5px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>note_list_clone</id>
+        <internal>false</internal>
+        <link/>
+        <name>Note List Clone</name>
+        <option_schema>[{"hint":"Specify a title for the Notes List widget","name":"title","default_value":"Notes","label":"Title","type":"string"},{"hint":"Select the maximum number of records to display","name":"maximum_records_to_display","default_value":"5","label":"Maximum records to display","type":"choice","choices":[{"label":"2 ","value":"2 "},{"label":"3 ","value":"3 "},{"label":"5 ","value":"5 "},{"label":"7 ","value":"7 "},{"label":"11","value":"11"},{"label":"13 ","value":"13 "},{"label":"17","value":"17"}]}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	if (input) {
+		//----------------------------------------------------------------------
+		// Prepare the record and get default values
+		//----------------------------------------------------------------------
+		var newUser;
+		if (input.action == 'newRec') {
+			newUser = new GlideRecord('x_snc_createnotes_note');
+			newUser.newRecord();
+			var newRecSysID = newUser.insert();// return sys_id
+			data.recID = newRecSysID;
+			data.newRecJSON = {};
+			$sp.getRecordValues(data.newRecJSON,newUser,"title,note,sys_id,user_name,user_email");  // 
+		}
+		
+		if(input.action == 'updateNewRec') { 
+			    newUser = new GlideRecord('x_snc_createnotes_note');
+					//var sysID = input.newRecID; 
+					newUser.user_name = input.fullName; 
+			    newUser.user_email = input.userEmail; 
+			    newUser.title = "Update";
+					newUser.note = "Worked";
+			    // remap fields ... 
+					newUser.update(); 
+		}
+	}
+}
+)();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-01-24 17:15:51</sys_created_on>
+        <sys_id>a4e2d66a4f3303003b564ea18110c7bf</sys_id>
+        <sys_mod_count>47</sys_mod_count>
+        <sys_name>Note List Clone</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_a4e2d66a4f3303003b564ea18110c7bf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-25 00:26:13</sys_updated_on>
+        <template><![CDATA[
+<div class="panel">
+  <form name="myForm" novalidate ng-submit="addUser(newUser)">
+    <div class="well">
+      <div class="form-group">
+        <label>Name:</label>
+        <input name="userName" type="text" class="form-control"
+               required ng-model="newUser.name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input name="userEmail" type="email" class="form-control"
+               required ng-model="newUser.email">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input name="agreed" type="checkbox"
+                 ng-model="newUser.agreed" required>
+          I agree to the terms and conditions
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary"
+              ng-disabled="myForm.$invalid">
+        Submit
+      </button>
+    </div>
+    <div class="well">
+      Message: {{message}}
+      <div>
+        Valid: {{myForm.$valid}}
+      </div>
+    </div>
+  </form>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

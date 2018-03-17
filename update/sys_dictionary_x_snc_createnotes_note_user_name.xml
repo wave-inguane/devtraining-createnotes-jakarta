@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="title" table="x_snc_createnotes_note">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="user_name" table="x_snc_createnotes_note">
         <active>true</active>
         <array>false</array>
         <array_denormalized>false</array_denormalized>
-        <attributes/>
+        <attributes>edge_encryption_enabled=true</attributes>
         <audit>false</audit>
-        <calculation><![CDATA[(function calculatedFieldValue(current) {
-
-	// Add your code here
-	return '';  // return the calculated value
-
-})(current);]]></calculation>
-        <choice/>
+        <calculation/>
+        <choice>0</choice>
         <choice_field/>
         <choice_table/>
-        <column_label>Title</column_label>
+        <column_label>Full name</column_label>
         <comments/>
         <create_roles/>
-        <default_value>New Note</default_value>
+        <default_value/>
         <defaultsort/>
         <delete_roles/>
         <dependent/>
@@ -28,12 +23,12 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element>title</element>
+        <element>user_name</element>
         <element_reference>false</element_reference>
         <foreign_database/>
         <internal_type display_value="String">string</internal_type>
         <mandatory>false</mandatory>
-        <max_length>100</max_length>
+        <max_length>40</max_length>
         <name>x_snc_createnotes_note</name>
         <next_element/>
         <primary>false</primary>
@@ -51,16 +46,16 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2017-04-10 15:48:46</sys_created_on>
-        <sys_id>1534f0844f6703003b564ea18110c77b</sys_id>
-        <sys_mod_count>0</sys_mod_count>
-        <sys_name>Title</sys_name>
+        <sys_created_on>2018-01-24 23:40:20</sys_created_on>
+        <sys_id>28eae3224ff303003b564ea18110c783</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Full name</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
-        <sys_update_name>sys_dictionary_x_snc_createnotes_note_title</sys_update_name>
-        <sys_updated_by>system</sys_updated_by>
-        <sys_updated_on>2018-01-04 05:41:43</sys_updated_on>
+        <sys_update_name>sys_dictionary_x_snc_createnotes_note_user_name</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-01-24 23:48:21</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

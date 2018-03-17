@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_page">
+    <sp_page action="INSERT_OR_UPDATE">
+        <css/>
+        <draft>false</draft>
+        <id>fontawesome_home_page</id>
+        <internal>false</internal>
+        <public>false</public>
+        <roles/>
+        <short_description>Fontawesome Home Page</short_description>
+        <sys_class_name>sp_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-10 22:00:25</sys_created_on>
+        <sys_id>90e63a044fd053003b564ea18110c76b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>fontawesome_home_page</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_page_90e63a044fd053003b564ea18110c76b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-10 22:00:25</sys_updated_on>
+        <title>Fontawesome Home Page</title>
+    </sp_page>
+    <sys_translated_text action="delete_multiple" query="documentkey=90e63a044fd053003b564ea18110c76b"/>
+</record_update>

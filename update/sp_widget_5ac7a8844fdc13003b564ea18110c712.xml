@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[//---------------------------------------------------------------------------
+//                             
+//---------------------------------------------------------------------------
+function($rootScope,$scope,$timeout, spUtil) {
+	/* widget controller */
+	var c = this;
+	
+	/*
+		$scope.handleEvent = function (e) {
+
+		if(e.type == "mousedown"){
+				$rootScope.$emit('TriggerFontAwesome', c.data.recID); 
+		}
+	}
+	*/
+
+	c.legacyFontAwesome =function(){
+		var url = "https://dev25300.service-now.com/fontawesome_sp/?id=fontawesome_home_page&sysparm_domain_restore=false&sysparm_stack=no#collapseOne1";
+	
+		var popup = OpenPopupCenter(url, "Fontawesome", "width=300, height=280");
+		
+		// var popup =  window.open (url, "popup", "width=900, height=600");
+	}
+	function OpenPopupCenter(pageURL, title, w, h) {
+		var left = (screen.width - w) / 2;
+		var top = (screen.height - h) / 3;  // for 25% - devide by 4  |  for 33% - devide by 3
+		var targetWin = window.open(pageURL, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+     //var targetWin = window.open(pageURL, title, "scrollbars=no,width=300,height=280,resizable=yes");
+	} 
+	/*
+	$rootScope.$on('TriggerFontAwesome', function(event,data) { 
+		c.legacyFontAwesome();
+	});
+	*/
+}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*iframe { border: 2px inset; }*/</css>
+        <data_table>sp_instance</data_table>
+        <demo_data>data = {};</demo_data>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>fontawesome_launcher</id>
+        <internal>false</internal>
+        <link/>
+        <name>Fontawesome Launcher</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	//--------------------------------------------
+	//
+	//--------------------------------------------
+	
+	/*
+			//noteObj.icon = 'fa fa-external-link fa-2x icon-blue';	
+	*/
+	
+	
+	})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-10 11:34:31</sys_created_on>
+        <sys_id>5ac7a8844fdc13003b564ea18110c712</sys_id>
+        <sys_mod_count>35</sys_mod_count>
+        <sys_name>Fontawesome Launcher</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_5ac7a8844fdc13003b564ea18110c712</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-11 00:30:56</sys_updated_on>
+        <template><![CDATA[
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Example</title>
+  </head>
+  <body>
+<div class="container" style="padding: 100px 50px 10px;" >
+  <!--
+    <button type="button" class="btn btn-primary" 
+            title="Popover title" data-container="body" 
+            data-toggle="popover" data-placement="top" 
+            data-content="Some content in Popover on top"> Popover on top 
+  </button>
+-->
+    
+    
+    <button id="status" class="btn btn-primary" ng-click="c.legacyFontAwesome()">
+    Launch Fontawesome Picker
+  </button>
+    </div>
+    
+    <!--
+    <script>
+      $(function () { $("[data-toggle='popover']").popover(); }); 
+    </script>
+    -->
+    
+    <script>
+      document.getElementById("status").onclick = function() {
+         $('button#status').removeClass('btn-primary');
+        $('button#status').addClass('btn-success');
+        document.getElementById("status").innerHTML = "Fontawesome Picker";
+      }
+    </script>
+  </body>
+</html>]]></template>
+    </sp_widget>
+</record_update>

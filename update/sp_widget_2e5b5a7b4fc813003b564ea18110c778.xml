@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($rootScope, $scope, spUtil) {
+	/* widget controller */
+	var c = this;
+	
+	$scope.selected = false;
+	$scope.selectedIcon = function(Icon){
+			$scope.selected = true;
+		  $scope.message = Icon;
+		
+		spUtil.addInfoMessage(Icon);
+	}
+	
+	/*
+	//--------------------------------------------------------------------------------
+	// Prepare the record to insert new user
+	//--------------------------------------------------------------------------------
+	c.newRec = function() {
+		c.server.get({
+			action: 'newRec'
+		}).then(function(r) {
+			// save newly created unique sys_id
+			c.data.recID = r.data.recID;
+			$rootScope.newSysId = c.data.recID;
+			$rootScope.$emit('grReady', c.data.recID); 
+		});
+	}
+	
+	//--------------------------------------------------------------------------------
+	// Update newly created record based on the unique sys_id
+	//--------------------------------------------------------------------------------
+	$scope.addUser = function (userDetails) {
+
+		//  this line of code is just for debugging use
+		$scope.message = userDetails.name + " ( " + userDetails.email + " ) ( " + userDetails.agreed + " ) ";
+
+
+		c.newRec();// get sys_id
+
+		//call the server and update this newly created sys_id
+		//spUtil.addInfoMessage(c.data.recID);
+		$rootScope.$on('grReady', function(event,data) {
+			c.server.get({
+				action: 'updateNewRec',
+				newRecID: $rootScope.newSysId, //c.data.recID,
+				fullName: userDetails.name,
+				userEmail: userDetails.email 
+				// add more fields ..
+
+			}).then(function(r) {
+				// used to updated the view if needed
+				//r.data 
+			});
+		});
+	}
+
+	$scope.message = "Ready";
+*/
+}//End function($rootScope, $scope, spUtil) 
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*
+h3.panel-title {
+  font-size:20px;
+  padding-top:5px;
+}
+*/</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Fontawesome Panels</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>fontawesome-panels</id>
+        <internal>false</internal>
+        <link/>
+        <name>Fontawesome Panels</name>
+        <option_schema>[{"hint":"Specify a title for the Notes List widget","name":"title","default_value":"Notes","label":"Title","type":"string"},{"hint":"Select the maximum number of records to display","name":"maximum_records_to_display","default_value":"5","label":"Maximum records to display","type":"choice","choices":[{"label":"2 ","value":"2 "},{"label":"3 ","value":"3 "},{"label":"5 ","value":"5 "},{"label":"7 ","value":"7 "},{"label":"11","value":"11"},{"label":"13 ","value":"13 "},{"label":"17","value":"17"}]}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[
+(function() {
+	
+	/*
+	var userID = gs.getUser().getID();
+	// gs.addInfoMessage("User : "+ userID);
+	//Logged in user:
+	var grUser = new GlideRecord('sys_user');
+	grUser.addQuery('sys_id',userID );
+	grUser.query();
+	if(grUser.next()){
+		gs.addInfoMessage("User : "+ grUser.first_name +" "+grUser.last_name);
+	}
+	
+	if (input) {
+		//----------------------------------------------------------------------
+		// Prepare the record and get default values
+		//----------------------------------------------------------------------
+		var newUser;
+		if (input.action == 'newRec') {
+			newUser = new GlideRecord('x_snc_createnotes_note');
+			newUser.newRecord();
+			var newRecSysID = newUser.insert();// return sys_id
+			data.recID = newRecSysID;
+			//data.newRecJSON = {};
+			//$sp.getRecordValues(data.newRecJSON,newUser,"title,note,sys_id,user_name,user_email");  // 
+		}
+		
+		if(input.action == 'updateNewRec') { 
+			    newUser = new GlideRecord('x_snc_createnotes_note');
+					var sysID = input.newRecID; 
+			
+			    gs.addInfoMessage(sysID);
+			    
+			    newUser.addQuery('sys_id',sysID);
+			    newUser.query();
+			    if(newUser.next()){
+						newUser.user_name = input.fullName; 
+						newUser.user_email = input.userEmail; 
+						newUser.title = "Update";
+						newUser.note = "Worked";
+						// remap fields ... 
+						newUser.update(); 
+					}
+		}
+	}
+}
+
+*/
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-10 01:20:57</sys_created_on>
+        <sys_id>2e5b5a7b4fc813003b564ea18110c778</sys_id>
+        <sys_mod_count>86</sys_mod_count>
+        <sys_name>Fontawesome Panels</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_2e5b5a7b4fc813003b564ea18110c778</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-10 07:24:35</sys_updated_on>
+        <template><![CDATA[<!-- Triggaer 
+<div class="btn-group">
+<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+Fontawesome
+<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+dropdown menu links
+</ul>
+</div>
+-->                                                                         
+             
+
+
+<!--
+  <div class="alert alert-success alert-dismissable" ng-if="selected">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button>
+     {{message}}
+  </div>
+-->
+
+   <div class="panel panel-info">
+          <div class="panel-heading">
+            
+            <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapseAll">
+              Fontawesome Icon Picker
+              </a>
+            </h4>
+          </div>
+          <div id="collapseAll" class="panel-collapse collapse">
+            <div class="panel-body">
+            
+             
+           
+
+<div class="container">
+     <h2 class="text-center">
+     Enjoy
+    </h2>
+    <hr>
+    </div >
+    <div class="container">
+
+      <div class="panel-group" id="accordion1">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion1" href="#collapseOne1">
+               ${FW Table 1 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne1" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+             <!-- start table 1 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons">
+    <thead><tr><td class="text-center">
+        <button class="btn btn-arrow btn-previous btn-primary disabled" value="-1">
+            <span class="glyphicon glyphicon-arrow-left"></span></button></td>
+            <td class="text-center" colspan="4"><span class="page-count">1 / 16</span></td><td class="text-center">
+                <button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                </td></tr><tr style="display: table-row;">   <td colspan="6">       
+                    <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">
+                       </td>
+                       </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td>
+<button class="btn btn-default btn-icon btn-warning btn-icon-selected" value="fa-" title="fa-" style="display: inline-block;" ng-click="selectedIcon('fa-')">
+    <i class="fa fa-"></i>
+    </button></td><td><button class="btn btn-default btn-icon" value="fa-adjust" title="fa-adjust" style="display: inline-block;" ng-click="selectedIcon('fa fa-')">
+                             <i class="fa fa-adjust"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-anchor" title="fa-anchor" style="display: inline-block;" ng-click="selectedIcon('fa fa-adjust')">
+                             <i class="fa fa-anchor"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-archive" title="fa-archive" style="display: inline-block;" ng-click="selectedIcon('fa fa-anchor')">
+                             <i class="fa fa-archive"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-area-chart" title="fa-area-chart" style="display: inline-block;" ng-click="selectedIcon('fa fa-archive')">
+                             <i class="fa fa-area-chart"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows" title="fa-arrows" style="display: inline-block;" ng-click="selectedIcon('fa fa-area-chart')">
+                             <i class="fa fa-arrows"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-arrows-h" title="fa-arrows-h" style="display: inline-block;" ng-click="selectedIcon('fa fa-arrows')">
+                         
+                         <i class="fa fa-arrows-h"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows-v" title="fa-arrows-v" style="display: inline-block;">
+                         <i class="fa fa-arrows-v"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-automobile" title="fa-automobile" style="display: inline-block;">
+                         <i class="fa fa-automobile"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-asterisk" title="fa-asterisk" style="display: inline-block;">
+                         <i class="fa fa-asterisk"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-at" title="fa-at" style="display: inline-block;">
+                         <i class="fa fa-at"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ban" title="fa-ban" style="display: inline-block;">
+                         
+                         <i class="fa fa-ban"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-bank" title="fa-bank" style="display: inline-block;">
+                         <i class="fa fa-bank"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bar-chart-o" title="fa-bar-chart-o" style="display: inline-block;">
+                         <i class="fa fa-bar-chart-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-barcode" title="fa-barcode" style="display: inline-block;">
+                         <i class="fa fa-barcode"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bars" title="fa-bars" style="display: inline-block;">
+                         <i class="fa fa-bars"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-beer" title="fa-beer" style="display: inline-block;">
+                         <i class="fa fa-beer"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bell" title="fa-bell" style="display: inline-block;">
+                         <i class="fa fa-bell"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-bell-o" title="fa-bell-o" style="display: inline-block;">
+                         
+                         <i class="fa fa-bell-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bell-slash" title="fa-bell-slash" style="display: inline-block;">
+                         <i class="fa fa-bell-slash"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bell-slash-o" title="fa-bell-slash-o" style="display: inline-block;">
+                         <i class="fa fa-bell-slash-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bicycle" title="fa-bicycle" style="display: inline-block;">
+                         <i class="fa fa-bicycle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-binoculars" title="fa-binoculars" style="display: inline-block;">
+                         <i class="fa fa-binoculars"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-birthday-cake" title="fa-birthday-cake" style="display: inline-block;">
+                         <i class="fa fa-birthday-cake"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-bolt" title="fa-bolt" style="display: inline-block;">
+                         <i class="fa fa-bolt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bomb" title="fa-bomb" style="display: inline-block;">
+                         
+                         <i class="fa fa-bomb"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-book" title="fa-book" style="display: inline-block;">
+                         <i class="fa fa-book"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bookmark" title="fa-bookmark" style="display: inline-block;">
+                         <i class="fa fa-bookmark"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bookmark-o" title="fa-bookmark-o" style="display: inline-block;">
+                         <i class="fa fa-bookmark-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-briefcase" title="fa-briefcase" style="display: inline-block;">
+                         <i class="fa fa-briefcase"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-bug" title="fa-bug" style="display: inline-block;">
+                         <i class="fa fa-bug"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-building" title="fa-building" style="display: inline-block;">
+                         
+                         <i class="fa fa-building"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-building-o" title="fa-building-o" style="display: inline-block;">
+                         <i class="fa fa-building-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bullhorn" title="fa-bullhorn" style="display: inline-block;">
+                         <i class="fa fa-bullhorn"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bullseye" title="fa-bullseye" style="display: inline-block;">
+                         <i class="fa fa-bullseye"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bus" title="fa-bus" style="display: inline-block;">
+                         <i class="fa fa-bus"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       
+                <span class="icons-count">1 - 36 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 1 -->
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+         <div class="panel-group" id="accordion2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2">
+               ${FW Table 2 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne2" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 2 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">2 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-cab" title="fa-cab" style="display: inline-block;"><i class="fa fa-cab"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-calculator" title="fa-calculator" style="display: inline-block;"><i class="fa fa-calculator"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-calendar" title="fa-calendar" style="display: inline-block;"><i class="fa fa-calendar"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-calendar-o" title="fa-calendar-o" style="display: inline-block;"><i class="fa fa-calendar-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-camera" title="fa-camera" style="display: inline-block;"><i class="fa fa-camera"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-camera-retro" title="fa-camera-retro" style="display: inline-block;"><i class="fa fa-camera-retro"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-car" title="fa-car" style="display: inline-block;"><i class="fa fa-car"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-down" title="fa-caret-square-o-down" style="display: inline-block;"><i class="fa fa-caret-square-o-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-left" title="fa-caret-square-o-left" style="display: inline-block;"><i class="fa fa-caret-square-o-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-right" title="fa-caret-square-o-right" style="display: inline-block;"><i class="fa fa-caret-square-o-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-up" title="fa-caret-square-o-up" style="display: inline-block;"><i class="fa fa-caret-square-o-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cc" title="fa-cc" style="display: inline-block;"><i class="fa fa-cc"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-cc-amex" title="fa-cc-amex" style="display: inline-block;"><i class="fa fa-cc-amex"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cc-discover" title="fa-cc-discover" style="display: inline-block;"><i class="fa fa-cc-discover"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cc-mastercard" title="fa-cc-mastercard" style="display: inline-block;"><i class="fa fa-cc-mastercard"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cc-paypal" title="fa-cc-paypal" style="display: inline-block;"><i class="fa fa-cc-paypal"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cc-stripe" title="fa-cc-stripe" style="display: inline-block;"><i class="fa fa-cc-stripe"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cc-visa" title="fa-cc-visa" style="display: inline-block;"><i class="fa fa-cc-visa"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-certificate" title="fa-certificate" style="display: inline-block;"><i class="fa fa-certificate"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-check" title="fa-check" style="display: inline-block;"><i class="fa fa-check"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-check-circle" title="fa-check-circle" style="display: inline-block;"><i class="fa fa-check-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-check-circle-o" title="fa-check-circle-o" style="display: inline-block;"><i class="fa fa-check-circle-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-check-square" title="fa-check-square" style="display: inline-block;"><i class="fa fa-check-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-check-square-o" title="fa-check-square-o" style="display: inline-block;"><i class="fa fa-check-square-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-child" title="fa-child" style="display: inline-block;"><i class="fa fa-child"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-circle" title="fa-circle" style="display: inline-block;"><i class="fa fa-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-circle-o" title="fa-circle-o" style="display: inline-block;"><i class="fa fa-circle-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-circle-thin" title="fa-circle-thin" style="display: inline-block;"><i class="fa fa-circle-thin"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-clock-o" title="fa-clock-o" style="display: inline-block;"><i class="fa fa-clock-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cloud" title="fa-cloud" style="display: inline-block;"><i class="fa fa-cloud"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-cloud-download" title="fa-cloud-download" style="display: inline-block;"><i class="fa fa-cloud-download"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cloud-upload" title="fa-cloud-upload" style="display: inline-block;"><i class="fa fa-cloud-upload"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-code" title="fa-code" style="display: inline-block;"><i class="fa fa-code"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-code-fork" title="fa-code-fork" style="display: inline-block;"><i class="fa fa-code-fork"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-coffee" title="fa-coffee" style="display: inline-block;"><i class="fa fa-coffee"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cog" title="fa-cog" style="display: inline-block;"><i class="fa fa-cog"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">37 - 72 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 2 -->
+            </div>
+          </div>
+        </div>
+        
+        
+        
+                 <div class="panel-group" id="accordion3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne3">
+               ${FW Table 3 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne3" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 3 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">3 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-cogs" title="fa-cogs" style="display: inline-block;"><i class="fa fa-cogs"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-comment" title="fa-comment" style="display: inline-block;"><i class="fa fa-comment"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-comment-o" title="fa-comment-o" style="display: inline-block;"><i class="fa fa-comment-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-comments" title="fa-comments" style="display: inline-block;"><i class="fa fa-comments"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-comments-o" title="fa-comments-o" style="display: inline-block;"><i class="fa fa-comments-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-compass" title="fa-compass" style="display: inline-block;"><i class="fa fa-compass"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-copyright" title="fa-copyright" style="display: inline-block;"><i class="fa fa-copyright"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-credit-card" title="fa-credit-card" style="display: inline-block;"><i class="fa fa-credit-card"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-crop" title="fa-crop" style="display: inline-block;"><i class="fa fa-crop"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-crosshairs" title="fa-crosshairs" style="display: inline-block;"><i class="fa fa-crosshairs"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cube" title="fa-cube" style="display: inline-block;"><i class="fa fa-cube"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cubes" title="fa-cubes" style="display: inline-block;"><i class="fa fa-cubes"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-cutlery" title="fa-cutlery" style="display: inline-block;"><i class="fa fa-cutlery"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dashboard" title="fa-dashboard" style="display: inline-block;"><i class="fa fa-dashboard"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-desktop" title="fa-desktop" style="display: inline-block;"><i class="fa fa-desktop"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dashboard" title="fa-dashboard" style="display: inline-block;"><i class="fa fa-dashboard"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-database" title="fa-database" style="display: inline-block;"><i class="fa fa-database"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-desktop" title="fa-desktop" style="display: inline-block;"><i class="fa fa-desktop"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-dot-circle-o" title="fa-dot-circle-o" style="display: inline-block;"><i class="fa fa-dot-circle-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-download" title="fa-download" style="display: inline-block;"><i class="fa fa-download"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-edit" title="fa-edit" style="display: inline-block;"><i class="fa fa-edit"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ellipsis-h" title="fa-ellipsis-h" style="display: inline-block;"><i class="fa fa-ellipsis-h"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ellipsis-v" title="fa-ellipsis-v" style="display: inline-block;"><i class="fa fa-ellipsis-v"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-envelope" title="fa-envelope" style="display: inline-block;"><i class="fa fa-envelope"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-envelope-o" title="fa-envelope-o" style="display: inline-block;"><i class="fa fa-envelope-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-envelope-square" title="fa-envelope-square" style="display: inline-block;"><i class="fa fa-envelope-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-eraser" title="fa-eraser" style="display: inline-block;"><i class="fa fa-eraser"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-exchange" title="fa-exchange" style="display: inline-block;"><i class="fa fa-exchange"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-exclamation" title="fa-exclamation" style="display: inline-block;"><i class="fa fa-exclamation"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-exclamation-circle" title="fa-exclamation-circle" style="display: inline-block;"><i class="fa fa-exclamation-circle"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-exclamation-triangle" title="fa-exclamation-triangle" style="display: inline-block;"><i class="fa fa-exclamation-triangle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-external-link" title="fa-external-link" style="display: inline-block;"><i class="fa fa-external-link"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-external-link-square" title="fa-external-link-square" style="display: inline-block;"><i class="fa fa-external-link-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-eye" title="fa-eye" style="display: inline-block;"><i class="fa fa-eye"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-eye-slash" title="fa-eye-slash" style="display: inline-block;"><i class="fa fa-eye-slash"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-eyedropper" title="fa-eyedropper" style="display: inline-block;"><i class="fa fa-eyedropper"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">73 - 108 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 3 -->
+            </div>
+          </div>
+        </div>
+        
+        
+        
+                        <div class="panel-group" id="accordion4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion4" href="#collapseOne4">
+               ${FW Table 4 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne4" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 4 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">4 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-fax" title="fa-fax" style="display: inline-block;"><i class="fa fa-fax"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-female" title="fa-female" style="display: inline-block;"><i class="fa fa-female"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-fighter-jet" title="fa-fighter-jet" style="display: inline-block;"><i class="fa fa-fighter-jet"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-archive-o" title="fa-file-archive-o" style="display: inline-block;"><i class="fa fa-file-archive-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-audio-o" title="fa-file-audio-o" style="display: inline-block;"><i class="fa fa-file-audio-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-code-o" title="fa-file-code-o" style="display: inline-block;"><i class="fa fa-file-code-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-file-excel-o" title="fa-file-excel-o" style="display: inline-block;"><i class="fa fa-file-excel-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-image-o" title="fa-file-image-o" style="display: inline-block;"><i class="fa fa-file-image-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-movie-o" title="fa-file-movie-o" style="display: inline-block;"><i class="fa fa-file-movie-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-pdf-o" title="fa-file-pdf-o" style="display: inline-block;"><i class="fa fa-file-pdf-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-photo-o" title="fa-file-photo-o" style="display: inline-block;"><i class="fa fa-file-photo-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-picture-o" title="fa-file-picture-o" style="display: inline-block;"><i class="fa fa-file-picture-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-file-powerpoint-o" title="fa-file-powerpoint-o" style="display: inline-block;"><i class="fa fa-file-powerpoint-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-sound-o" title="fa-file-sound-o" style="display: inline-block;"><i class="fa fa-file-sound-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-video-o" title="fa-file-video-o" style="display: inline-block;"><i class="fa fa-file-video-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-word-o" title="fa-file-word-o" style="display: inline-block;"><i class="fa fa-file-word-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-zip-o" title="fa-file-zip-o" style="display: inline-block;"><i class="fa fa-file-zip-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-film" title="fa-film" style="display: inline-block;"><i class="fa fa-film"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-filter" title="fa-filter" style="display: inline-block;"><i class="fa fa-filter"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-fire" title="fa-fire" style="display: inline-block;"><i class="fa fa-fire"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-fire-extinguisher" title="fa-fire-extinguisher" style="display: inline-block;"><i class="fa fa-fire-extinguisher"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-flag" title="fa-flag" style="display: inline-block;"><i class="fa fa-flag"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-flag-checkered" title="fa-flag-checkered" style="display: inline-block;"><i class="fa fa-flag-checkered"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-flag-o" title="fa-flag-o" style="display: inline-block;"><i class="fa fa-flag-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-flash" title="fa-flash" style="display: inline-block;"><i class="fa fa-flash"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-flask" title="fa-flask" style="display: inline-block;"><i class="fa fa-flask"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-folder" title="fa-folder" style="display: inline-block;"><i class="fa fa-folder"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-folder-o" title="fa-folder-o" style="display: inline-block;"><i class="fa fa-folder-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-folder-open" title="fa-folder-open" style="display: inline-block;"><i class="fa fa-folder-open"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-folder-open-o" title="fa-folder-open-o" style="display: inline-block;"><i class="fa fa-folder-open-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-frown-o" title="fa-frown-o" style="display: inline-block;"><i class="fa fa-frown-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-futbol-o" title="fa-futbol-o" style="display: inline-block;"><i class="fa fa-futbol-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-gamepad" title="fa-gamepad" style="display: inline-block;"><i class="fa fa-gamepad"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-gavel" title="fa-gavel" style="display: inline-block;"><i class="fa fa-gavel"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-gear" title="fa-gear" style="display: inline-block;"><i class="fa fa-gear"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-gears" title="fa-gears" style="display: inline-block;"><i class="fa fa-gears"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">109 - 144 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 4 -->
+            </div>
+          </div>
+        </div>
+        
+        
+                          
+                          
+                          
+                         <div class="panel-group" id="accordion5">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion5" href="#collapseOne5">
+               ${FW Table 5 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne5" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 5 -->
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">5 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-gift" title="fa-gift" style="display: inline-block;"><i class="fa fa-gift"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-glass" title="fa-glass" style="display: inline-block;"><i class="fa fa-glass"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-globe" title="fa-globe" style="display: inline-block;"><i class="fa fa-globe"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-graduation-cap" title="fa-graduation-cap" style="display: inline-block;"><i class="fa fa-graduation-cap"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-group" title="fa-group" style="display: inline-block;"><i class="fa fa-group"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-hdd-o" title="fa-hdd-o" style="display: inline-block;"><i class="fa fa-hdd-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-headphones" title="fa-headphones" style="display: inline-block;"><i class="fa fa-headphones"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-heart" title="fa-heart" style="display: inline-block;"><i class="fa fa-heart"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-heart-o" title="fa-heart-o" style="display: inline-block;"><i class="fa fa-heart-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-history" title="fa-history" style="display: inline-block;"><i class="fa fa-history"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-home" title="fa-home" style="display: inline-block;"><i class="fa fa-home"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-image" title="fa-image" style="display: inline-block;"><i class="fa fa-image"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-inbox" title="fa-inbox" style="display: inline-block;"><i class="fa fa-inbox"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-info" title="fa-info" style="display: inline-block;"><i class="fa fa-info"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-info-circle" title="fa-info-circle" style="display: inline-block;"><i class="fa fa-info-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-institution" title="fa-institution" style="display: inline-block;"><i class="fa fa-institution"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-key" title="fa-key" style="display: inline-block;"><i class="fa fa-key"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-keyboard-o" title="fa-keyboard-o" style="display: inline-block;"><i class="fa fa-keyboard-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-language" title="fa-language" style="display: inline-block;"><i class="fa fa-language"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-laptop" title="fa-laptop" style="display: inline-block;"><i class="fa fa-laptop"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-leaf" title="fa-leaf" style="display: inline-block;"><i class="fa fa-leaf"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-legal" title="fa-legal" style="display: inline-block;"><i class="fa fa-legal"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-lemon-o" title="fa-lemon-o" style="display: inline-block;"><i class="fa fa-lemon-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-level-down" title="fa-level-down" style="display: inline-block;"><i class="fa fa-level-down"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-level-up" title="fa-level-up" style="display: inline-block;"><i class="fa fa-level-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-life-bouy" title="fa-life-bouy" style="display: inline-block;"><i class="fa fa-life-bouy"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-life-ring" title="fa-life-ring" style="display: inline-block;"><i class="fa fa-life-ring"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-life-saver" title="fa-life-saver" style="display: inline-block;"><i class="fa fa-life-saver"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-lightbulb-o" title="fa-lightbulb-o" style="display: inline-block;"><i class="fa fa-lightbulb-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-line-chart" title="fa-line-chart" style="display: inline-block;"><i class="fa fa-line-chart"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-location-arrow" title="fa-location-arrow" style="display: inline-block;"><i class="fa fa-location-arrow"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-lock" title="fa-lock" style="display: inline-block;"><i class="fa fa-lock"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-magic" title="fa-magic" style="display: inline-block;"><i class="fa fa-magic"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-magnet" title="fa-magnet" style="display: inline-block;"><i class="fa fa-magnet"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-mail-forward" title="fa-mail-forward" style="display: inline-block;"><i class="fa fa-mail-forward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-mail-reply" title="fa-mail-reply" style="display: inline-block;"><i class="fa fa-mail-reply"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">145 - 180 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+              
+               <!-- end table 5 -->
+            </div>
+          </div>
+        </div>                 
+                          
+                          
+                
+                           
+                           
+                        <div class="panel-group" id="accordion6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne6">
+               ${FW Table 6 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne6" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 6 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">6 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-mail-reply-all" title="fa-mail-reply-all" style="display: inline-block;"><i class="fa fa-mail-reply-all"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-male" title="fa-male" style="display: inline-block;"><i class="fa fa-male"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-map-marker" title="fa-map-marker" style="display: inline-block;"><i class="fa fa-map-marker"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-meh-o" title="fa-meh-o" style="display: inline-block;"><i class="fa fa-meh-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-microphone" title="fa-microphone" style="display: inline-block;"><i class="fa fa-microphone"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-microphone-slash" title="fa-microphone-slash" style="display: inline-block;"><i class="fa fa-microphone-slash"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-minus" title="fa-minus" style="display: inline-block;"><i class="fa fa-minus"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-minus-circle" title="fa-minus-circle" style="display: inline-block;"><i class="fa fa-minus-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-minus-square" title="fa-minus-square" style="display: inline-block;"><i class="fa fa-minus-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-minus-square-o" title="fa-minus-square-o" style="display: inline-block;"><i class="fa fa-minus-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-mobile" title="fa-mobile" style="display: inline-block;"><i class="fa fa-mobile"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-mobile-phone" title="fa-mobile-phone" style="display: inline-block;"><i class="fa fa-mobile-phone"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-money" title="fa-money" style="display: inline-block;"><i class="fa fa-money"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-moon-o" title="fa-moon-o" style="display: inline-block;"><i class="fa fa-moon-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-mortar-board" title="fa-mortar-board" style="display: inline-block;"><i class="fa fa-mortar-board"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-music" title="fa-music" style="display: inline-block;"><i class="fa fa-music"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-navicon" title="fa-navicon" style="display: inline-block;"><i class="fa fa-navicon"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-newspaper-o" title="fa-newspaper-o" style="display: inline-block;"><i class="fa fa-newspaper-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-paint-brush" title="fa-paint-brush" style="display: inline-block;"><i class="fa fa-paint-brush"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-paper-plane" title="fa-paper-plane" style="display: inline-block;"><i class="fa fa-paper-plane"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-paper-plane-o" title="fa-paper-plane-o" style="display: inline-block;"><i class="fa fa-paper-plane-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-paw" title="fa-paw" style="display: inline-block;"><i class="fa fa-paw"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pencil" title="fa-pencil" style="display: inline-block;"><i class="fa fa-pencil"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pencil-square" title="fa-pencil-square" style="display: inline-block;"><i class="fa fa-pencil-square"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-pencil-square-o" title="fa-pencil-square-o" style="display: inline-block;"><i class="fa fa-pencil-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-phone" title="fa-phone" style="display: inline-block;"><i class="fa fa-phone"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-phone-square" title="fa-phone-square" style="display: inline-block;"><i class="fa fa-phone-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-photo" title="fa-photo" style="display: inline-block;"><i class="fa fa-photo"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-picture-o" title="fa-picture-o" style="display: inline-block;"><i class="fa fa-picture-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pie-chart" title="fa-pie-chart" style="display: inline-block;"><i class="fa fa-pie-chart"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-plane" title="fa-plane" style="display: inline-block;"><i class="fa fa-plane"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plug" title="fa-plug" style="display: inline-block;"><i class="fa fa-plug"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plus" title="fa-plus" style="display: inline-block;"><i class="fa fa-plus"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plus-circle" title="fa-plus-circle" style="display: inline-block;"><i class="fa fa-plus-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plus-square" title="fa-plus-square" style="display: inline-block;"><i class="fa fa-plus-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plus-square-o" title="fa-plus-square-o" style="display: inline-block;"><i class="fa fa-plus-square-o"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">181 - 216 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 6 -->
+            </div>
+          </div>
+        </div>                   
+                           
+                           
+                           
+                           
+                           <div class="panel-group" id="accordion7">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne7">
+               ${FW Table 7 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne7" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 7 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">7 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-power-off" title="fa-power-off" style="display: inline-block;"><i class="fa fa-power-off"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-print" title="fa-print" style="display: inline-block;"><i class="fa fa-print"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-puzzle-piece" title="fa-puzzle-piece" style="display: inline-block;"><i class="fa fa-puzzle-piece"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-qrcode" title="fa-qrcode" style="display: inline-block;"><i class="fa fa-qrcode"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-question" title="fa-question" style="display: inline-block;"><i class="fa fa-question"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-question-circle" title="fa-question-circle" style="display: inline-block;"><i class="fa fa-question-circle"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-quote-left" title="fa-quote-left" style="display: inline-block;"><i class="fa fa-quote-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-quote-right" title="fa-quote-right" style="display: inline-block;"><i class="fa fa-quote-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-random" title="fa-random" style="display: inline-block;"><i class="fa fa-random"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-refresh" title="fa-refresh" style="display: inline-block;"><i class="fa fa-refresh"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-reorder" title="fa-reorder" style="display: inline-block;"><i class="fa fa-reorder"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-reply" title="fa-reply" style="display: inline-block;"><i class="fa fa-reply"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-reply-all" title="fa-reply-all" style="display: inline-block;"><i class="fa fa-reply-all"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-retweet" title="fa-retweet" style="display: inline-block;"><i class="fa fa-retweet"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-road" title="fa-road" style="display: inline-block;"><i class="fa fa-road"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rocket" title="fa-rocket" style="display: inline-block;"><i class="fa fa-rocket"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rss" title="fa-rss" style="display: inline-block;"><i class="fa fa-rss"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rss-square" title="fa-rss-square" style="display: inline-block;"><i class="fa fa-rss-square"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-search" title="fa-search" style="display: inline-block;"><i class="fa fa-search"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-search-minus" title="fa-search-minus" style="display: inline-block;"><i class="fa fa-search-minus"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-search-plus" title="fa-search-plus" style="display: inline-block;"><i class="fa fa-search-plus"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-send" title="fa-send" style="display: inline-block;"><i class="fa fa-send"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-send-o" title="fa-send-o" style="display: inline-block;"><i class="fa fa-send-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-share" title="fa-share" style="display: inline-block;"><i class="fa fa-share"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-share-alt" title="fa-share-alt" style="display: inline-block;"><i class="fa fa-share-alt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-share-alt-square" title="fa-share-alt-square" style="display: inline-block;"><i class="fa fa-share-alt-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-share-square" title="fa-share-square" style="display: inline-block;"><i class="fa fa-share-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-share-square-o" title="fa-share-square-o" style="display: inline-block;"><i class="fa fa-share-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-shield" title="fa-shield" style="display: inline-block;"><i class="fa fa-shield"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-shopping-cart" title="fa-shopping-cart" style="display: inline-block;"><i class="fa fa-shopping-cart"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-sign-in" title="fa-sign-in" style="display: inline-block;"><i class="fa fa-sign-in"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sign-out" title="fa-sign-out" style="display: inline-block;"><i class="fa fa-sign-out"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-signal" title="fa-signal" style="display: inline-block;"><i class="fa fa-signal"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sitemap" title="fa-sitemap" style="display: inline-block;"><i class="fa fa-sitemap"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sliders" title="fa-sliders" style="display: inline-block;"><i class="fa fa-sliders"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-smile-o" title="fa-smile-o" style="display: inline-block;"><i class="fa fa-smile-o"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">217 - 252 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 7 -->
+            </div>
+          </div>
+        </div>                
+                           
+                           
+                           
+                           
+                           
+                          <div class="panel-group" id="accordion8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion8" href="#collapseOne8">
+               ${FW Table 8 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne8" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 8 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">8 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-soccer-ball-o" title="fa-soccer-ball-o" style="display: inline-block;"><i class="fa fa-soccer-ball-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort" title="fa-sort" style="display: inline-block;"><i class="fa fa-sort"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-alpha-asc" title="fa-sort-alpha-asc" style="display: inline-block;"><i class="fa fa-sort-alpha-asc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-alpha-desc" title="fa-sort-alpha-desc" style="display: inline-block;"><i class="fa fa-sort-alpha-desc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-amount-asc" title="fa-sort-amount-asc" style="display: inline-block;"><i class="fa fa-sort-amount-asc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-amount-desc" title="fa-sort-amount-desc" style="display: inline-block;"><i class="fa fa-sort-amount-desc"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-sort-asc" title="fa-sort-asc" style="display: inline-block;"><i class="fa fa-sort-asc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-desc" title="fa-sort-desc" style="display: inline-block;"><i class="fa fa-sort-desc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-down" title="fa-sort-down" style="display: inline-block;"><i class="fa fa-sort-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-numeric-asc" title="fa-sort-numeric-asc" style="display: inline-block;"><i class="fa fa-sort-numeric-asc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-numeric-desc" title="fa-sort-numeric-desc" style="display: inline-block;"><i class="fa fa-sort-numeric-desc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sort-up" title="fa-sort-up" style="display: inline-block;"><i class="fa fa-sort-up"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-space-shuttle" title="fa-space-shuttle" style="display: inline-block;"><i class="fa fa-space-shuttle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-spinner" title="fa-spinner" style="display: inline-block;"><i class="fa fa-spinner"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-spoon" title="fa-spoon" style="display: inline-block;"><i class="fa fa-spoon"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-square" title="fa-square" style="display: inline-block;"><i class="fa fa-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-square-o" title="fa-square-o" style="display: inline-block;"><i class="fa fa-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-star" title="fa-star" style="display: inline-block;"><i class="fa fa-star"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-star-half" title="fa-star-half" style="display: inline-block;"><i class="fa fa-star-half"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-star-half-empty" title="fa-star-half-empty" style="display: inline-block;"><i class="fa fa-star-half-empty"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-star-half-full" title="fa-star-half-full" style="display: inline-block;"><i class="fa fa-star-half-full"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-star-half-o" title="fa-star-half-o" style="display: inline-block;"><i class="fa fa-star-half-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-star-o" title="fa-star-o" style="display: inline-block;"><i class="fa fa-star-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-suitcase" title="fa-suitcase" style="display: inline-block;"><i class="fa fa-suitcase"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-sun-o" title="fa-sun-o" style="display: inline-block;"><i class="fa fa-sun-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-support" title="fa-support" style="display: inline-block;"><i class="fa fa-support"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tablet" title="fa-tablet" style="display: inline-block;"><i class="fa fa-tablet"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tachometer" title="fa-tachometer" style="display: inline-block;"><i class="fa fa-tachometer"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tag" title="fa-tag" style="display: inline-block;"><i class="fa fa-tag"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tags" title="fa-tags" style="display: inline-block;"><i class="fa fa-tags"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-tasks" title="fa-tasks" style="display: inline-block;"><i class="fa fa-tasks"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-taxi" title="fa-taxi" style="display: inline-block;"><i class="fa fa-taxi"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-terminal" title="fa-terminal" style="display: inline-block;"><i class="fa fa-terminal"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-thumb-tack" title="fa-thumb-tack" style="display: inline-block;"><i class="fa fa-thumb-tack"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-thumbs-down" title="fa-thumbs-down" style="display: inline-block;"><i class="fa fa-thumbs-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-thumbs-o-down" title="fa-thumbs-o-down" style="display: inline-block;"><i class="fa fa-thumbs-o-down"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">253 - 288 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 8 -->
+            </div>
+          </div>
+        </div>                 
+                           
+                           
+                           
+                           
+                        <div class="panel-group" id="accordion9">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne9">
+               ${FW Table 9 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne9" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 9 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">9 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-thumbs-o-up" title="fa-thumbs-o-up" style="display: inline-block;"><i class="fa fa-thumbs-o-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-thumbs-up" title="fa-thumbs-up" style="display: inline-block;"><i class="fa fa-thumbs-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ticket" title="fa-ticket" style="display: inline-block;"><i class="fa fa-ticket"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-times" title="fa-times" style="display: inline-block;"><i class="fa fa-times"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-times-circle" title="fa-times-circle" style="display: inline-block;"><i class="fa fa-times-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-times-circle-o" title="fa-times-circle-o" style="display: inline-block;"><i class="fa fa-times-circle-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-tint" title="fa-tint" style="display: inline-block;"><i class="fa fa-tint"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-down" title="fa-toggle-down" style="display: inline-block;"><i class="fa fa-toggle-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-left" title="fa-toggle-left" style="display: inline-block;"><i class="fa fa-toggle-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-off" title="fa-toggle-off" style="display: inline-block;"><i class="fa fa-toggle-off"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-on" title="fa-toggle-on" style="display: inline-block;"><i class="fa fa-toggle-on"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-right" title="fa-toggle-right" style="display: inline-block;"><i class="fa fa-toggle-right"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-toggle-up" title="fa-toggle-up" style="display: inline-block;"><i class="fa fa-toggle-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-trash" title="fa-trash" style="display: inline-block;"><i class="fa fa-trash"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-trash-o" title="fa-trash-o" style="display: inline-block;"><i class="fa fa-trash-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tree" title="fa-tree" style="display: inline-block;"><i class="fa fa-tree"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-trophy" title="fa-trophy" style="display: inline-block;"><i class="fa fa-trophy"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-truck" title="fa-truck" style="display: inline-block;"><i class="fa fa-truck"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-tty" title="fa-tty" style="display: inline-block;"><i class="fa fa-tty"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-umbrella" title="fa-umbrella" style="display: inline-block;"><i class="fa fa-umbrella"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-university" title="fa-university" style="display: inline-block;"><i class="fa fa-university"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-unlock" title="fa-unlock" style="display: inline-block;"><i class="fa fa-unlock"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-unlock-alt" title="fa-unlock-alt" style="display: inline-block;"><i class="fa fa-unlock-alt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-unsorted" title="fa-unsorted" style="display: inline-block;"><i class="fa fa-unsorted"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-upload" title="fa-upload" style="display: inline-block;"><i class="fa fa-upload"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-user" title="fa-user" style="display: inline-block;"><i class="fa fa-user"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-users" title="fa-users" style="display: inline-block;"><i class="fa fa-users"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-video-camera" title="fa-video-camera" style="display: inline-block;"><i class="fa fa-video-camera"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-volume-down" title="fa-volume-down" style="display: inline-block;"><i class="fa fa-volume-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-volume-off" title="fa-volume-off" style="display: inline-block;"><i class="fa fa-volume-off"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-volume-up" title="fa-volume-up" style="display: inline-block;"><i class="fa fa-volume-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-warning" title="fa-warning" style="display: inline-block;"><i class="fa fa-warning"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-wheelchair" title="fa-wheelchair" style="display: inline-block;"><i class="fa fa-wheelchair"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-wifi" title="fa-wifi" style="display: inline-block;"><i class="fa fa-wifi"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-wrench" title="fa-wrench" style="display: inline-block;"><i class="fa fa-wrench"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-check-square" title="fa-check-square" style="display: inline-block;"><i class="fa fa-check-square"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">289 - 324 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 9 -->
+            </div>
+          </div>
+        </div>                   
+                           
+                           
+            
+                          
+                        <div class="panel-group" id="accordion10">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion10" href="#collapseOne10">
+               ${FW Table 10 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne10" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 10 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">10 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-check-square-o" title="fa-check-square-o" style="display: inline-block;"><i class="fa fa-check-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-circle" title="fa-circle" style="display: inline-block;"><i class="fa fa-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-circle-o" title="fa-circle-o" style="display: inline-block;"><i class="fa fa-circle-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dot-circle-o" title="fa-dot-circle-o" style="display: inline-block;"><i class="fa fa-dot-circle-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-minus-square" title="fa-minus-square" style="display: inline-block;"><i class="fa fa-minus-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-minus-square-o" title="fa-minus-square-o" style="display: inline-block;"><i class="fa fa-minus-square-o"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-plus-square" title="fa-plus-square" style="display: inline-block;"><i class="fa fa-plus-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plus-square-o" title="fa-plus-square-o" style="display: inline-block;"><i class="fa fa-plus-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-square" title="fa-square" style="display: inline-block;"><i class="fa fa-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-square-o" title="fa-square-o" style="display: inline-block;"><i class="fa fa-square-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bitcoin" title="fa-bitcoin" style="display: inline-block;"><i class="fa fa-bitcoin"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-btc" title="fa-btc" style="display: inline-block;"><i class="fa fa-btc"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-cny" title="fa-cny" style="display: inline-block;"><i class="fa fa-cny"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dollar" title="fa-dollar" style="display: inline-block;"><i class="fa fa-dollar"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-eur" title="fa-eur" style="display: inline-block;"><i class="fa fa-eur"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-euro" title="fa-euro" style="display: inline-block;"><i class="fa fa-euro"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-gbp" title="fa-gbp" style="display: inline-block;"><i class="fa fa-gbp"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ils" title="fa-ils" style="display: inline-block;"><i class="fa fa-ils"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-inr" title="fa-inr" style="display: inline-block;"><i class="fa fa-inr"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-jpy" title="fa-jpy" style="display: inline-block;"><i class="fa fa-jpy"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-krw" title="fa-krw" style="display: inline-block;"><i class="fa fa-krw"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-money" title="fa-money" style="display: inline-block;"><i class="fa fa-money"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rmb" title="fa-rmb" style="display: inline-block;"><i class="fa fa-rmb"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rouble" title="fa-rouble" style="display: inline-block;"><i class="fa fa-rouble"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-rub" title="fa-rub" style="display: inline-block;"><i class="fa fa-rub"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ruble" title="fa-ruble" style="display: inline-block;"><i class="fa fa-ruble"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rupee" title="fa-rupee" style="display: inline-block;"><i class="fa fa-rupee"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-shekel" title="fa-shekel" style="display: inline-block;"><i class="fa fa-shekel"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-sheqel" title="fa-sheqel" style="display: inline-block;"><i class="fa fa-sheqel"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-try" title="fa-try" style="display: inline-block;"><i class="fa fa-try"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-turkish-lira" title="fa-turkish-lira" style="display: inline-block;"><i class="fa fa-turkish-lira"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-usd" title="fa-usd" style="display: inline-block;"><i class="fa fa-usd"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-won" title="fa-won" style="display: inline-block;"><i class="fa fa-won"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-yen" title="fa-yen" style="display: inline-block;"><i class="fa fa-yen"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-align-center" title="fa-align-center" style="display: inline-block;"><i class="fa fa-align-center"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-align-justify" title="fa-align-justify" style="display: inline-block;"><i class="fa fa-align-justify"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">325 - 360 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 10 -->
+            </div>
+          </div>
+        </div>                  
+                          
+                   
+                          
+                          
+                         <div class="panel-group" id="accordion11">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion11" href="#collapseOne11">
+               ${FW Table 11 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne11" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 11 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">11 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-align-left" title="fa-align-left" style="display: inline-block;"><i class="fa fa-align-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-align-right" title="fa-align-right" style="display: inline-block;"><i class="fa fa-align-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bold" title="fa-bold" style="display: inline-block;"><i class="fa fa-bold"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chain" title="fa-chain" style="display: inline-block;"><i class="fa fa-chain"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chain-broken" title="fa-chain-broken" style="display: inline-block;"><i class="fa fa-chain-broken"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-clipboard" title="fa-clipboard" style="display: inline-block;"><i class="fa fa-clipboard"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-columns" title="fa-columns" style="display: inline-block;"><i class="fa fa-columns"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-copy" title="fa-copy" style="display: inline-block;"><i class="fa fa-copy"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-cut" title="fa-cut" style="display: inline-block;"><i class="fa fa-cut"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dedent" title="fa-dedent" style="display: inline-block;"><i class="fa fa-dedent"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-eraser" title="fa-eraser" style="display: inline-block;"><i class="fa fa-eraser"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file" title="fa-file" style="display: inline-block;"><i class="fa fa-file"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-file-o" title="fa-file-o" style="display: inline-block;"><i class="fa fa-file-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-text" title="fa-file-text" style="display: inline-block;"><i class="fa fa-file-text"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-file-text-o" title="fa-file-text-o" style="display: inline-block;"><i class="fa fa-file-text-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-files-o" title="fa-files-o" style="display: inline-block;"><i class="fa fa-files-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-floppy-o" title="fa-floppy-o" style="display: inline-block;"><i class="fa fa-floppy-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-font" title="fa-font" style="display: inline-block;"><i class="fa fa-font"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-header" title="fa-header" style="display: inline-block;"><i class="fa fa-header"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-indent" title="fa-indent" style="display: inline-block;"><i class="fa fa-indent"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-italic" title="fa-italic" style="display: inline-block;"><i class="fa fa-italic"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-link" title="fa-link" style="display: inline-block;"><i class="fa fa-link"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-list" title="fa-list" style="display: inline-block;"><i class="fa fa-list"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-list-alt" title="fa-list-alt" style="display: inline-block;"><i class="fa fa-list-alt"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-list-ol" title="fa-list-ol" style="display: inline-block;"><i class="fa fa-list-ol"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-list-ul" title="fa-list-ul" style="display: inline-block;"><i class="fa fa-list-ul"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-outdent" title="fa-outdent" style="display: inline-block;"><i class="fa fa-outdent"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-paperclip" title="fa-paperclip" style="display: inline-block;"><i class="fa fa-paperclip"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-paragraph" title="fa-paragraph" style="display: inline-block;"><i class="fa fa-paragraph"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-paste" title="fa-paste" style="display: inline-block;"><i class="fa fa-paste"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-repeat" title="fa-repeat" style="display: inline-block;"><i class="fa fa-repeat"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rotate-left" title="fa-rotate-left" style="display: inline-block;"><i class="fa fa-rotate-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rotate-right" title="fa-rotate-right" style="display: inline-block;"><i class="fa fa-rotate-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-save" title="fa-save" style="display: inline-block;"><i class="fa fa-save"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-scissors" title="fa-scissors" style="display: inline-block;"><i class="fa fa-scissors"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-strikethrough" title="fa-strikethrough" style="display: inline-block;"><i class="fa fa-strikethrough"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">361 - 396 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 11 -->
+            </div>
+          </div>
+        </div>                 
+                          
+                          
+          
+                           
+                        <div class="panel-group" id="accordion12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne12">
+               ${FW Table 12 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne12" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 12 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">12 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-subscript" title="fa-subscript" style="display: inline-block;"><i class="fa fa-subscript"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-superscript" title="fa-superscript" style="display: inline-block;"><i class="fa fa-superscript"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-table" title="fa-table" style="display: inline-block;"><i class="fa fa-table"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-text-height" title="fa-text-height" style="display: inline-block;"><i class="fa fa-text-height"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-text-width" title="fa-text-width" style="display: inline-block;"><i class="fa fa-text-width"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-th" title="fa-th" style="display: inline-block;"><i class="fa fa-th"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-th-large" title="fa-th-large" style="display: inline-block;"><i class="fa fa-th-large"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-th-list" title="fa-th-list" style="display: inline-block;"><i class="fa fa-th-list"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-underline" title="fa-underline" style="display: inline-block;"><i class="fa fa-underline"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-undo" title="fa-undo" style="display: inline-block;"><i class="fa fa-undo"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-unlink" title="fa-unlink" style="display: inline-block;"><i class="fa fa-unlink"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angle-double-down" title="fa-angle-double-down" style="display: inline-block;"><i class="fa fa-angle-double-down"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-angle-double-left" title="fa-angle-double-left" style="display: inline-block;"><i class="fa fa-angle-double-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angle-double-right" title="fa-angle-double-right" style="display: inline-block;"><i class="fa fa-angle-double-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angle-double-up" title="fa-angle-double-up" style="display: inline-block;"><i class="fa fa-angle-double-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angle-down" title="fa-angle-down" style="display: inline-block;"><i class="fa fa-angle-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angle-left" title="fa-angle-left" style="display: inline-block;"><i class="fa fa-angle-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angle-right" title="fa-angle-right" style="display: inline-block;"><i class="fa fa-angle-right"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-angle-up" title="fa-angle-up" style="display: inline-block;"><i class="fa fa-angle-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-down" title="fa-arrow-circle-down" style="display: inline-block;"><i class="fa fa-arrow-circle-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-left" title="fa-arrow-circle-left" style="display: inline-block;"><i class="fa fa-arrow-circle-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-o-down" title="fa-arrow-circle-o-down" style="display: inline-block;"><i class="fa fa-arrow-circle-o-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-o-left" title="fa-arrow-circle-o-left" style="display: inline-block;"><i class="fa fa-arrow-circle-o-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-o-right" title="fa-arrow-circle-o-right" style="display: inline-block;"><i class="fa fa-arrow-circle-o-right"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-o-up" title="fa-arrow-circle-o-up" style="display: inline-block;"><i class="fa fa-arrow-circle-o-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-right" title="fa-arrow-circle-right" style="display: inline-block;"><i class="fa fa-arrow-circle-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-circle-up" title="fa-arrow-circle-up" style="display: inline-block;"><i class="fa fa-arrow-circle-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-down" title="fa-arrow-down" style="display: inline-block;"><i class="fa fa-arrow-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-left" title="fa-arrow-left" style="display: inline-block;"><i class="fa fa-arrow-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrow-right" title="fa-arrow-right" style="display: inline-block;"><i class="fa fa-arrow-right"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-arrow-up" title="fa-arrow-up" style="display: inline-block;"><i class="fa fa-arrow-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows" title="fa-arrows" style="display: inline-block;"><i class="fa fa-arrows"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows-alt" title="fa-arrows-alt" style="display: inline-block;"><i class="fa fa-arrows-alt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows-h" title="fa-arrows-h" style="display: inline-block;"><i class="fa fa-arrows-h"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows-v" title="fa-arrows-v" style="display: inline-block;"><i class="fa fa-arrows-v"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-down" title="fa-caret-down" style="display: inline-block;"><i class="fa fa-caret-down"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">397 - 432 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 12 -->
+            </div>
+          </div>
+        </div>                   
+                           
+            
+                          
+                          
+                          
+                             <div class="panel-group" id="accordion13">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion13" href="#collapseOne13">
+               ${FW Table 13 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne13" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 13 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">13 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-caret-left" title="fa-caret-left" style="display: inline-block;"><i class="fa fa-caret-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-right" title="fa-caret-right" style="display: inline-block;"><i class="fa fa-caret-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-down" title="fa-caret-square-o-down" style="display: inline-block;"><i class="fa fa-caret-square-o-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-left" title="fa-caret-square-o-left" style="display: inline-block;"><i class="fa fa-caret-square-o-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-right" title="fa-caret-square-o-right" style="display: inline-block;"><i class="fa fa-caret-square-o-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-caret-square-o-up" title="fa-caret-square-o-up" style="display: inline-block;"><i class="fa fa-caret-square-o-up"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-caret-up" title="fa-caret-up" style="display: inline-block;"><i class="fa fa-caret-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-circle-down" title="fa-chevron-circle-down" style="display: inline-block;"><i class="fa fa-chevron-circle-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-circle-left" title="fa-chevron-circle-left" style="display: inline-block;"><i class="fa fa-chevron-circle-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-circle-right" title="fa-chevron-circle-right" style="display: inline-block;"><i class="fa fa-chevron-circle-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-circle-up" title="fa-chevron-circle-up" style="display: inline-block;"><i class="fa fa-chevron-circle-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-down" title="fa-chevron-down" style="display: inline-block;"><i class="fa fa-chevron-down"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-chevron-left" title="fa-chevron-left" style="display: inline-block;"><i class="fa fa-chevron-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-right" title="fa-chevron-right" style="display: inline-block;"><i class="fa fa-chevron-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-chevron-up" title="fa-chevron-up" style="display: inline-block;"><i class="fa fa-chevron-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-hand-o-down" title="fa-hand-o-down" style="display: inline-block;"><i class="fa fa-hand-o-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-hand-o-left" title="fa-hand-o-left" style="display: inline-block;"><i class="fa fa-hand-o-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-hand-o-right" title="fa-hand-o-right" style="display: inline-block;"><i class="fa fa-hand-o-right"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-hand-o-up" title="fa-hand-o-up" style="display: inline-block;"><i class="fa fa-hand-o-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-long-arrow-down" title="fa-long-arrow-down" style="display: inline-block;"><i class="fa fa-long-arrow-down"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-long-arrow-left" title="fa-long-arrow-left" style="display: inline-block;"><i class="fa fa-long-arrow-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-long-arrow-right" title="fa-long-arrow-right" style="display: inline-block;"><i class="fa fa-long-arrow-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-long-arrow-up" title="fa-long-arrow-up" style="display: inline-block;"><i class="fa fa-long-arrow-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-down" title="fa-toggle-down" style="display: inline-block;"><i class="fa fa-toggle-down"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-toggle-left" title="fa-toggle-left" style="display: inline-block;"><i class="fa fa-toggle-left"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-right" title="fa-toggle-right" style="display: inline-block;"><i class="fa fa-toggle-right"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-toggle-up" title="fa-toggle-up" style="display: inline-block;"><i class="fa fa-toggle-up"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-arrows-alt" title="fa-arrows-alt" style="display: inline-block;"><i class="fa fa-arrows-alt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-backward" title="fa-backward" style="display: inline-block;"><i class="fa fa-backward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-compress" title="fa-compress" style="display: inline-block;"><i class="fa fa-compress"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-eject" title="fa-eject" style="display: inline-block;"><i class="fa fa-eject"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-expand" title="fa-expand" style="display: inline-block;"><i class="fa fa-expand"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-fast-backward" title="fa-fast-backward" style="display: inline-block;"><i class="fa fa-fast-backward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-fast-forward" title="fa-fast-forward" style="display: inline-block;"><i class="fa fa-fast-forward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-forward" title="fa-forward" style="display: inline-block;"><i class="fa fa-forward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pause" title="fa-pause" style="display: inline-block;"><i class="fa fa-pause"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">433 - 468 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 13 -->
+            </div>
+          </div>
+        </div>             
+                          
+                          
+                  
+                               
+                               
+                               
+                               <div class="panel-group" id="accordion14">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion14" href="#collapseOne14">
+               ${FW Table 14 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne14" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 14 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">14 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-play" title="fa-play" style="display: inline-block;"><i class="fa fa-play"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-play-circle" title="fa-play-circle" style="display: inline-block;"><i class="fa fa-play-circle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-play-circle-o" title="fa-play-circle-o" style="display: inline-block;"><i class="fa fa-play-circle-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-step-backward" title="fa-step-backward" style="display: inline-block;"><i class="fa fa-step-backward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-step-forward" title="fa-step-forward" style="display: inline-block;"><i class="fa fa-step-forward"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-stop" title="fa-stop" style="display: inline-block;"><i class="fa fa-stop"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-youtube-play" title="fa-youtube-play" style="display: inline-block;"><i class="fa fa-youtube-play"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-adn" title="fa-adn" style="display: inline-block;"><i class="fa fa-adn"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-android" title="fa-android" style="display: inline-block;"><i class="fa fa-android"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-angellist" title="fa-angellist" style="display: inline-block;"><i class="fa fa-angellist"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-apple" title="fa-apple" style="display: inline-block;"><i class="fa fa-apple"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-behance" title="fa-behance" style="display: inline-block;"><i class="fa fa-behance"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-behance-square" title="fa-behance-square" style="display: inline-block;"><i class="fa fa-behance-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bitbucket" title="fa-bitbucket" style="display: inline-block;"><i class="fa fa-bitbucket"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bitbucket-square" title="fa-bitbucket-square" style="display: inline-block;"><i class="fa fa-bitbucket-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-bitcoin" title="fa-bitcoin" style="display: inline-block;"><i class="fa fa-bitcoin"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-btc" title="fa-btc" style="display: inline-block;"><i class="fa fa-btc"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-css3" title="fa-css3" style="display: inline-block;"><i class="fa fa-css3"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-delicious" title="fa-delicious" style="display: inline-block;"><i class="fa fa-delicious"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-digg" title="fa-digg" style="display: inline-block;"><i class="fa fa-digg"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dribbble" title="fa-dribbble" style="display: inline-block;"><i class="fa fa-dribbble"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-dropbox" title="fa-dropbox" style="display: inline-block;"><i class="fa fa-dropbox"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-drupal" title="fa-drupal" style="display: inline-block;"><i class="fa fa-drupal"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-empire" title="fa-empire" style="display: inline-block;"><i class="fa fa-empire"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-facebook" title="fa-facebook" style="display: inline-block;"><i class="fa fa-facebook"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-facebook-square" title="fa-facebook-square" style="display: inline-block;"><i class="fa fa-facebook-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-flickr" title="fa-flickr" style="display: inline-block;"><i class="fa fa-flickr"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-foursquare" title="fa-foursquare" style="display: inline-block;"><i class="fa fa-foursquare"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ge" title="fa-ge" style="display: inline-block;"><i class="fa fa-ge"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-git" title="fa-git" style="display: inline-block;"><i class="fa fa-git"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-git-square" title="fa-git-square" style="display: inline-block;"><i class="fa fa-git-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-github" title="fa-github" style="display: inline-block;"><i class="fa fa-github"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-github-alt" title="fa-github-alt" style="display: inline-block;"><i class="fa fa-github-alt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-github-square" title="fa-github-square" style="display: inline-block;"><i class="fa fa-github-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-gittip" title="fa-gittip" style="display: inline-block;"><i class="fa fa-gittip"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-google" title="fa-google" style="display: inline-block;"><i class="fa fa-google"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">469 - 504 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 14 -->
+            </div>
+          </div>
+        </div>                
+                               
+                               
+                               
+                
+                                 
+                                 
+                                 
+                        <div class="panel-group" id="accordion15">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion15" href="#collapseOne15">
+               ${FW Table 15 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne15" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 15 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">15 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-google-plus" title="fa-google-plus" style="display: inline-block;"><i class="fa fa-google-plus"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-google-plus-square" title="fa-google-plus-square" style="display: inline-block;"><i class="fa fa-google-plus-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-google-wallet" title="fa-google-wallet" style="display: inline-block;"><i class="fa fa-google-wallet"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-hacker-news" title="fa-hacker-news" style="display: inline-block;"><i class="fa fa-hacker-news"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-html5" title="fa-html5" style="display: inline-block;"><i class="fa fa-html5"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-instagram" title="fa-instagram" style="display: inline-block;"><i class="fa fa-instagram"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-ioxhost" title="fa-ioxhost" style="display: inline-block;"><i class="fa fa-ioxhost"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-joomla" title="fa-joomla" style="display: inline-block;"><i class="fa fa-joomla"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-jsfiddle" title="fa-jsfiddle" style="display: inline-block;"><i class="fa fa-jsfiddle"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-lastfm" title="fa-lastfm" style="display: inline-block;"><i class="fa fa-lastfm"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-lastfm-square" title="fa-lastfm-square" style="display: inline-block;"><i class="fa fa-lastfm-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-linkedin" title="fa-linkedin" style="display: inline-block;"><i class="fa fa-linkedin"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-linkedin-square" title="fa-linkedin-square" style="display: inline-block;"><i class="fa fa-linkedin-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-linux" title="fa-linux" style="display: inline-block;"><i class="fa fa-linux"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-maxcdn" title="fa-maxcdn" style="display: inline-block;"><i class="fa fa-maxcdn"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-meanpath" title="fa-meanpath" style="display: inline-block;"><i class="fa fa-meanpath"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-openid" title="fa-openid" style="display: inline-block;"><i class="fa fa-openid"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pagelines" title="fa-pagelines" style="display: inline-block;"><i class="fa fa-pagelines"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-paypal" title="fa-paypal" style="display: inline-block;"><i class="fa fa-paypal"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pied-piper" title="fa-pied-piper" style="display: inline-block;"><i class="fa fa-pied-piper"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pied-piper-alt" title="fa-pied-piper-alt" style="display: inline-block;"><i class="fa fa-pied-piper-alt"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pinterest" title="fa-pinterest" style="display: inline-block;"><i class="fa fa-pinterest"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-pinterest-square" title="fa-pinterest-square" style="display: inline-block;"><i class="fa fa-pinterest-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-qq" title="fa-qq" style="display: inline-block;"><i class="fa fa-qq"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-ra" title="fa-ra" style="display: inline-block;"><i class="fa fa-ra"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-rebel" title="fa-rebel" style="display: inline-block;"><i class="fa fa-rebel"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-reddit" title="fa-reddit" style="display: inline-block;"><i class="fa fa-reddit"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-reddit-square" title="fa-reddit-square" style="display: inline-block;"><i class="fa fa-reddit-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-renren" title="fa-renren" style="display: inline-block;"><i class="fa fa-renren"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-share-alt" title="fa-share-alt" style="display: inline-block;"><i class="fa fa-share-alt"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-share-alt-square" title="fa-share-alt-square" style="display: inline-block;"><i class="fa fa-share-alt-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-skype" title="fa-skype" style="display: inline-block;"><i class="fa fa-skype"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-slack" title="fa-slack" style="display: inline-block;"><i class="fa fa-slack"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-slideshare" title="fa-slideshare" style="display: inline-block;"><i class="fa fa-slideshare"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-soundcloud" title="fa-soundcloud" style="display: inline-block;"><i class="fa fa-soundcloud"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-spotify" title="fa-spotify" style="display: inline-block;"><i class="fa fa-spotify"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">505 - 540 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 15 -->
+            </div>
+          </div>
+        </div>                         
+                                 
+                                 
+                                 
+                                 
+                                 
+                          <div class="panel-group" id="accordion16">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title"> 
+              <a data-toggle="collapse" data-parent="#accordion3" href="#collapseOne16">
+               ${FW Table 16 of 16}
+              </a>                
+            </h4>
+          </div>
+          <div id="collapseOne16" class="panel-collapse collapse in">
+            <div class="panel-body"> 
+               <!-- start table 16 -->
+              
+              
+              
+              <div class="popover-content"><table class="table-icons"><thead><tr><td class="text-center"><button class="btn btn-arrow btn-previous btn-primary" value="-1"><span class="glyphicon glyphicon-arrow-left"></span></button></td><td class="text-center" colspan="4"><span class="page-count">16 / 16</span></td><td class="text-center"><button class="btn btn-arrow btn-next btn-primary disabled" value="1"><span class="glyphicon glyphicon-arrow-right"></span></button></td></tr><tr style="display: table-row;">   <td colspan="6">       <input type="text" class="form-control search-control" style="width: 234px;" placeholder="Search icon">   </td></tr></thead><tbody><tr><td><button class="btn btn-default btn-icon" value="fa-stack-exchange" title="fa-stack-exchange" style="display: inline-block;"><i class="fa fa-stack-exchange"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-stack-overflow" title="fa-stack-overflow" style="display: inline-block;"><i class="fa fa-stack-overflow"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-steam" title="fa-steam" style="display: inline-block;"><i class="fa fa-steam"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-steam-square" title="fa-steam-square" style="display: inline-block;"><i class="fa fa-steam-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-stumbleupon" title="fa-stumbleupon" style="display: inline-block;"><i class="fa fa-stumbleupon"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-stumbleupon-circle" title="fa-stumbleupon-circle" style="display: inline-block;"><i class="fa fa-stumbleupon-circle"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-tencent-weibo" title="fa-tencent-weibo" style="display: inline-block;"><i class="fa fa-tencent-weibo"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-trello" title="fa-trello" style="display: inline-block;"><i class="fa fa-trello"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tumblr" title="fa-tumblr" style="display: inline-block;"><i class="fa fa-tumblr"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-tumblr-square" title="fa-tumblr-square" style="display: inline-block;"><i class="fa fa-tumblr-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-twitch" title="fa-twitch" style="display: inline-block;"><i class="fa fa-twitch"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-twitter" title="fa-twitter" style="display: inline-block;"><i class="fa fa-twitter"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-twitter-square" title="fa-twitter-square" style="display: inline-block;"><i class="fa fa-twitter-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-vimeo-square" title="fa-vimeo-square" style="display: inline-block;"><i class="fa fa-vimeo-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-vine" title="fa-vine" style="display: inline-block;"><i class="fa fa-vine"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-vk" title="fa-vk" style="display: inline-block;"><i class="fa fa-vk"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-wechat" title="fa-wechat" style="display: inline-block;"><i class="fa fa-wechat"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-weibo" title="fa-weibo" style="display: inline-block;"><i class="fa fa-weibo"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-weixin" title="fa-weixin" style="display: inline-block;"><i class="fa fa-weixin"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-windows" title="fa-windows" style="display: inline-block;"><i class="fa fa-windows"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-wordpress" title="fa-wordpress" style="display: inline-block;"><i class="fa fa-wordpress"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-xing" title="fa-xing" style="display: inline-block;"><i class="fa fa-xing"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-xing-square" title="fa-xing-square" style="display: inline-block;"><i class="fa fa-xing-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-yahoo" title="fa-yahoo" style="display: inline-block;"><i class="fa fa-yahoo"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-yelp" title="fa-yelp" style="display: inline-block;"><i class="fa fa-yelp"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-youtube" title="fa-youtube" style="display: inline-block;"><i class="fa fa-youtube"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-youtube-play" title="fa-youtube-play" style="display: inline-block;"><i class="fa fa-youtube-play"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-youtube-square" title="fa-youtube-square" style="display: inline-block;"><i class="fa fa-youtube-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-ambulance" title="fa-ambulance" style="display: inline-block;"><i class="fa fa-ambulance"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-h-square" title="fa-h-square" style="display: inline-block;"><i class="fa fa-h-square"></i></button></td></tr><tr><td><button class="btn btn-default btn-icon" value="fa-hospital-o" title="fa-hospital-o" style="display: inline-block;"><i class="fa fa-hospital-o"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-medkit" title="fa-medkit" style="display: inline-block;"><i class="fa fa-medkit"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-plus-square" title="fa-plus-square" style="display: inline-block;"><i class="fa fa-plus-square"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-stethoscope" title="fa-stethoscope" style="display: inline-block;"><i class="fa fa-stethoscope"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-user-md" title="fa-user-md" style="display: inline-block;"><i class="fa fa-user-md"></i></button></td><td><button class="btn btn-default btn-icon" value="fa-wheelchair" title="fa-wheelchair" style="display: inline-block;"><i class="fa fa-wheelchair"></i></button></td></tr></tbody><tfoot><tr>   <td colspan="6" class="text-center">       <span class="icons-count">541 - 576 of 576</span>   </td></tr></tfoot></table></div>
+              
+              
+              
+               <!-- end table 16 -->
+            </div>
+          </div>
+        </div>                       
+                                 
+                                 
+        <!--
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> Click me to exapand. Click me again to collapse. Section 2--show method </a>                </h4>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body"> Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+              butcher vice lomo. </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> Click me to exapand. Click me again to collapse. Section 3--toggle method </a>                </h4>
+          </div>
+          <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body"> Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+              butcher vice lomo. </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"> Click me to exapand. Click me again to collapse. Section 4--options method </a>                </h4>
+          </div>
+          <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body"> Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
+              butcher vice lomo. </div>
+          </div>
+        </div>
+      </div>
+      -->
+      
+      
+                            <script type="text/javascript">
+                              // $(function () { $('#collapseFour').collapse({ toggle: false }) });
+                              //$(function () { $('#collapseTwo').collapse('show') });
+                              // $(function () { $('#collapseThree').collapse('toggle') });
+                              $(function () { $('#collapseOne1').collapse('hide') });
+                              $(function () { $('#collapseOne2').collapse('hide') });
+                              $(function () { $('#collapseOne3').collapse('hide') });
+                              $(function () { $('#collapseOne4').collapse('hide') });
+                              $(function () { $('#collapseOne5').collapse('hide') });
+                              $(function () { $('#collapseOne6').collapse('hide') });
+                              $(function () { $('#collapseOne7').collapse('hide') });
+                              $(function () { $('#collapseOne8').collapse('hide') });
+                              $(function () { $('#collapseOne9').collapse('hide') });
+                              $(function () { $('#collapseOne10').collapse('hide') });
+                              $(function () { $('#collapseOne11').collapse('hide') });
+                              $(function () { $('#collapseOne12').collapse('hide') });
+                              $(function () { $('#collapseOne13').collapse('hide') });
+                              $(function () { $('#collapseOne14').collapse('hide') });
+                              $(function () { $('#collapseOne15').collapse('hide') });
+                              $(function () { $('#collapseOne16').collapse('hide') });
+                      
+                              $(function () { $('#collapseAll').collapse('hide') });
+                            </script>
+                          </div><!--  <div class="container"> -->
+
+
+
+
+
+
+
+
+
+
+
+
+   </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="panel">
+  <form name="myForm" novalidate ng-submit="addUser(newUser)">
+    <div class="well">
+      <div class="form-group">
+        <label>Name:</label>
+        <input name="userName" type="text" class="form-control"
+               required ng-model="newUser.name">
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input name="userEmail" type="email" class="form-control"
+               required ng-model="newUser.email">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input name="agreed" type="checkbox"
+                 ng-model="newUser.agreed" required>
+          I agree to the terms and conditions
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary"
+              ng-disabled="myForm.$invalid">
+        Submit
+      </button>
+    </div>
+    <div class="well">
+      Message: {{message}}
+      <div>
+        Valid: {{myForm.$valid}}
+      </div>
+    </div>
+  </form>
+</div>
+-->
+]]></template>
+    </sp_widget>
+</record_update>

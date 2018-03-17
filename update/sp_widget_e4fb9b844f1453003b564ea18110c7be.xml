@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function($scope) {
+	var c = this;
+	addItemsToCategories(c.data.categories, c.data.items);
+	function addItemsToCategories(cats, items) {
+		cats.forEach(function(cat) {
+			cat.items = [];
+			items.forEach(function (item) {
+				if (item.category != cat.sys_id)
+					return; 
+				
+				cat.items.push(item);
+			})
+		})
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>fontawesome-icon-usage</id>
+        <internal>false</internal>
+        <link/>
+        <name>Fontawesome Icon Usage</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	
+	var avatar = gs.getUserID();
+	//gs.addErrorMessage(avatar);
+	//var cat = $sp.getParameter('sc_catalog');
+	var cat = 'e0d08b13c3330100c8b837659bba8fb4';
+	if (!cat)
+		cat = $sp.getValue("sc_catalog");  // portal catalog
+
+	var gr = new GlideRecord('sc_catalog', cat);
+	gr.get(cat);
+	data.cat = cat;
+	data.title = gr.getValue("title");
+	data.categories = getCategories(cat);
+	data.items = getItems(cat);
+
+	
+		//---------------------------------------------------------------------
+	// Catalog Items : 28251c006f0c1200a0b002e6eb3ee472 TO
+	// Content Items : 28251c006f0c1200a0b002e6eb3ee472 FROM
+	//---------------------------------------------------------------------
+	function getItems(cat) {
+		var gr = new GlideRecord('sc_cat_item');
+		gr.addQuery('sc_catalogs', cat);
+		gr.addActiveQuery();
+		gr.orderBy('name');
+		gr.query();
+		var items = [];
+		while (gr.next()) {
+			if (!$sp.canReadRecord("sc_cat_item", gr.getUniqueValue()))
+				continue;
+
+			var c = {};
+			$sp.getRecordValues(c,gr,'sys_id,name,short_description,category,sys_class_name');
+			$sp.getRecordDisplayValues(c, gr, 'picture');
+			// $sp.getRecordDisplayValues(c, gr, 'icon');
+			c.page = 'sc_cat_item';
+			if (c.sys_class_name == 'sc_cat_item_guide') 
+				c.page = 'sc_cat_item_guide';
+			items.push(c);
+		}
+		return items;
+	}
+
+	function getCategories(cat) {
+		var gr = new GlideRecord('sc_category');
+		gr.addQuery('sc_catalog', cat);
+		gr.addActiveQuery();
+		gr.orderBy('title');
+		gr.query();
+		var cats = [];
+		while (gr.next()) {
+			if (!$sp.canReadRecord("sc_category", gr.getUniqueValue()))
+				continue;
+
+			var c = {};
+			$sp.getRecordValues(c,gr,'sys_id,title,parent');
+			//adding
+				$sp.getRecordDisplayValues(c, gr, 'homepage_image');
+			cats.push(c);
+		}
+		return cats;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-02-11 00:45:20</sys_created_on>
+        <sys_id>e4fb9b844f1453003b564ea18110c7be</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Fontawesome Icon Usage</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_e4fb9b844f1453003b564ea18110c7be</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-02-11 01:08:32</sys_updated_on>
+        <template><![CDATA[<!--
+<div>
+  ${Content Item / Catalog Item}
+</div>
+-->
+<sp-panel ng-attr-title="data.title">
+  <div ng-repeat="c in ::data.categories" ng-if="::c.items.length">
+    <div class="h4">
+      <a ng-href="?id=sc_category&sys_id={{::c.sys_id}}">{{::c.title}}
+      
+        <img ng-src="{{::c.homepage_image}}" ng-if="::c.homepage_image"  /> 
+     <!-- <img ng-src="{{::c.icon}}" ng-if="::c.icon"  /> -->
+    </a>
+      
+    </div>
+    
+  
+    <div class="row">
+      <div class="col-sm-6 col-md-4" ng-repeat="item in ::c.items">
+        <div class="panel panel-{{::options.color}} b">
+          <a href="?id={{::item.page}}&sys_id={{::item.sys_id}}" class="panel-body block">
+            <div class="overflow-100">
+              <h4 class="m-t-none m-b-xs">{{::item.name}}</h4>
+              <img ng-src="{{::item.picture}}" ng-if="::item.picture" class="m-r-sm m-b-sm item-image pull-left" />
+              <div class="text-muted item-short-desc">{{::item.short_description}}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</sp-panel>
+<pre>{{ data | json }}</pre> ]]></template>
+    </sp_widget>
+</record_update>

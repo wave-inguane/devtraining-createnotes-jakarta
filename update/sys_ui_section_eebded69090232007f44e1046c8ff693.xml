@@ -5,55 +5,69 @@
             <element>number</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-04-10 15:59:47</sys_created_on>
-            <sys_id>680e65a9090232007f44e1046c8ff6ae</sys_id>
+            <sys_created_on>2018-01-24 23:48:21</sys_created_on>
+            <sys_id>82bca3624ff303003b564ea18110c79b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_snc_createnotes_note" sys_domain="global" view="Default view">eebded69090232007f44e1046c8ff693</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-04-10 15:59:47</sys_updated_on>
+            <sys_updated_on>2018-01-24 23:48:21</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>user_name</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-24 23:48:21</sys_created_on>
+            <sys_id>06bca3624ff303003b564ea18110c79b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_createnotes_note" sys_domain="global" view="Default view">eebded69090232007f44e1046c8ff693</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-24 23:48:21</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>user_email</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-01-24 23:48:21</sys_created_on>
+            <sys_id>86bca3624ff303003b564ea18110c79b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_createnotes_note" sys_domain="global" view="Default view">eebded69090232007f44e1046c8ff693</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-01-24 23:48:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.split</element>
-            <position>1</position>
+            <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-04-10 15:59:47</sys_created_on>
-            <sys_id>e80e65a9090232007f44e1046c8ff6ae</sys_id>
+            <sys_created_on>2018-01-24 23:48:21</sys_created_on>
+            <sys_id>0abca3624ff303003b564ea18110c79b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_snc_createnotes_note" sys_domain="global" view="Default view">eebded69090232007f44e1046c8ff693</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-04-10 15:59:47</sys_updated_on>
+            <sys_updated_on>2018-01-24 23:48:21</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>user</element>
-            <position>2</position>
+            <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-04-10 15:59:47</sys_created_on>
-            <sys_id>6c0e65a9090232007f44e1046c8ff6ae</sys_id>
+            <sys_created_on>2018-01-24 23:48:21</sys_created_on>
+            <sys_id>8abca3624ff303003b564ea18110c79b</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_snc_createnotes_note" sys_domain="global" view="Default view">eebded69090232007f44e1046c8ff693</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-04-10 15:59:47</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>share</element>
-            <position>3</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2017-04-10 15:59:47</sys_created_on>
-            <sys_id>ec0e65a9090232007f44e1046c8ff6ae</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_snc_createnotes_note" sys_domain="global" view="Default view">eebded69090232007f44e1046c8ff693</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2017-04-10 15:59:47</sys_updated_on>
+            <sys_updated_on>2018-01-24 23:48:21</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
