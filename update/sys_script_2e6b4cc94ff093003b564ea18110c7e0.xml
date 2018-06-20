@@ -95,14 +95,261 @@ function onAsync(current) {
 			}
 		}
 	}
-}]]></script>
+}
+
+
+
+	
+var gr = new GlideRecord('incident');
+gr.orderByDesc('sys_created_on');
+gr.setLimit(10);
+gr.query(); // this retrieves latest 10 incident records created \\
+	
+	
+	
+	
+	(function runMailScript(/* GlideRecord */ current, /* TemplatePrinter */ template,
+/* Optional EmailOutbound */ email, /* Optional GlideRecord */ email_action,
+/* Optional GlideRecord */ event) {
+	//created by: inguane 12/25/2017
+	template.print('<p><font size="5" color="#808080" face="helvetica"><strong>');
+	template.print(gs.getMessage('The CR '+ '${URI_REF}' + ' is ready for implementation') + '.');
+	template.print('</strong></font></p>');
+})(current, template, email, email_action, event);
+	
+	(function runMailScript(/* GlideRecord */ current, /* TemplatePrinter */ template,
+/* Optional EmailOutbound */ email, /* Optional GlideRecord */ email_action,
+/* Optional GlideRecord */ event) {
+	
+	// Updated by: inguane 12/25/2017
+	//var link = current.getLink();
+	var curr_num = event.parm1;
+	var curr_rec;
+	var grCTASK = new GlideRecord('change_task');//can use any table
+	grCTASK.addQuery('number', curr_num );
+	grCTASK.query();
+	if ( grCTASK.next()) {
+		curr_rec = grCTASK;
+	}
+	
+	var link = curr_rec.getLink();
+	/*
+	var link = '<a href="' + gs.getProperty('glide.servlet.uri') + 'nav_to.do?uri=' +  curr_rec.getTableName() + '.do?sys_id=' +  curr_rec.sys_id + '" target="blank">' +  curr_rec.number + '</a>';
+	*/
+	
+	template.print('<font face="helvetica">');
+	
+	var backgroundColor = 'background-color: #278efc;';
+	var border = 'border: 1px solid #0368d4;';
+	var color = 'color: #ffffff;';
+	var fontSize = 'font-size: 16px;';
+	var fontFamily = 'font-family: Helvetica, Arial, sans-serif;';
+	var textDecoration = 'text-decoration: none; border-radius: 3px;';
+	var webKitBorder = '-webkit-border-radius: 3px;';
+	var mozBorder = '-moz-border-radius: 3px;';
+	var display = 'display: inline-block;';
+	var padding = 'padding: 5px;';
+	
+	template.print('<a href="' + link + '"');
+	template.print('style="' + backgroundColor + border + color + fontSize + fontFamily + textDecoration + webKitBorder + mozBorder + display + padding);
+	template.print('">');
+	template.print(gs.getMessage('Take me to the Change Task: '+event.parm1));
+	template.print('</a>');
+
+	
+	template.print('</font>');
+	template.print('<br><br>');
+	template.print('<p><font size="3" color="#808080" face="helvetica">');
+	template.print('Thank you.');
+	template.print('</font></p>');
+})(current, template, email, email_action, event);
+	
+	
+
+/*
+// this logic is similar to that in RedirectTransaction.setRedirectURL
+function setRedirectFields(gotoURL) {
+	if (gotoURL.indexOf('$sys_id') > -1)
+		gotoURL = gotoURL.replace(/\$sys_id/g, g_form.getUniqueValue());
+	
+	if (gotoURL.indexOf('$action') > -1)
+		gotoURL = gotoURL.replace(/\$action/g, 'sysverb_delete');
+	
+	if (gotoURL.indexOf('$display_value') > -1)
+		gotoURL = gotoURL.replace(/\$display_value/g, g_form.getDisplayValue());
+	
+	return gotoURL;
+}
+*/
+
+/*
+var ajaxHelper;
+var objSysId;
+var tblName;
+var dlg;
+var returnUrl;
+var fromRelList;
+var module;
+var listQuery;
+var stackName = null;
+var gotoUrl = null;
+
+function confirmAndDeleteUserSetLicenseFromForm() {   
+    objSysId = g_form.getUniqueValue();
+    tblName = g_form.getTableName();
+    fromRelList = g_form.getParameter('sysparm_from_related_list');
+    module = g_form.getParameter('sysparm_userpref_module');
+    listQuery = g_form.getParameter('sysparm_record_list');
+    stackName = g_form.getParameter('sysparm_nameofstack');
+	gotoUrl = g_form.getParameter('sysparm_goto_url');
+
+    ajaxHelper = new GlideAjax('DeleteRecordAjax');
+    ajaxHelper.addParam('sysparm_name', 'getCascadeDeleteTables');
+    ajaxHelper.addParam('sysparm_obj_id', objSysId);
+    ajaxHelper.addParam('sysparm_table_name', tblName);
+    ajaxHelper.addParam('sysparm_nameofstack', stackName);
+    ajaxHelper.setWantSessionMessages(false);
+	if (gotoUrl && gotoUrl != "")
+		ajaxHelper.addParam('sysparm_goto_url', setRedirectFields(gotoUrl));
+	
+    ajaxHelper.getXMLAnswer(getCascadeDelUserSetLicenseTablesDoneForm.bind(this), null, null); 
+}
+
+function getCascadeDelUserSetLicenseTablesDoneForm(answer, s) {
+    
+    var ansrArray = answer.split(';');
+    returnUrl = ansrArray[0];
+    var objList = ansrArray[2];
+	var dialogClass = window.GlideModal ? GlideModal : GlideDialogWindow;
+    dlg = new dialogClass('delete_confirm_delete_users_from_subscription');
+    dlg.setTitle(new GwtMessage().getMessage('Remove User Set from Subscription'));
+	dlg.setWidth(600);
+    dlg.setPreference('sysparm_obj_list', objSysId);
+    dlg.setPreference('sysparm_table_name', tblName);
+    dlg.setPreference('sysparm_delobj_list', objList);  
+    dlg.setPreference('sysparm_parent_form', this);
+	dlg.setPreference('sysparm_subscription_sys_id',g_form.getUniqueValue());
+	dlg.setPreference('sysparm_user_set_deletion','true');
+    dlg.render();
+    
+}
+
+function deleteUsersetLicenseCompleted() {
+    dlg.destroy();
+    var w = getTopWindow();
+    cbField = w.document.getElementById('glide_dialog_form_target_' + tblName);
+    if(cbField != null) {
+        // this is a dialog form, make sure the completion callback is called
+        cbField.value = 'sysverb_delete:' + objSysId;
+        cbField.onchange();
+        
+       // dismiss the dialog form
+       var elem = window.parent.document.getElementById('body_FormDialog');
+       if (elem)
+           new GlideWindow().locate(elem).destroy();
+    } else {
+        // this is a regular form, use the return URL to back to the correct view, where possible
+        if (returnUrl != 'null') {
+            window.location.href = returnUrl;
+        } else {           
+            // this is just the default case, in case everything else blows up, should never happen!
+            window.location.href = window.location.protocol + '//' + window.location.host + '/' + tblName + '_list.do?sysparm_userpref_module=' + module + '&sysparm_query=' + listQuery + '&sysparm_cancelable=true';
+        }        
+    }	   
+}
+
+// this logic is similar to that in RedirectTransaction.setRedirectURL
+function setRedirectFields(gotoURL) {
+	if (gotoURL.indexOf('$sys_id') > -1)
+		gotoURL = gotoURL.replace(/\$sys_id/g, g_form.getUniqueValue());
+	
+	if (gotoURL.indexOf('$action') > -1)
+		gotoURL = gotoURL.replace(/\$action/g, 'sysverb_delete');
+	
+	if (gotoURL.indexOf('$display_value') > -1)
+		gotoURL = gotoURL.replace(/\$display_value/g, g_form.getDisplayValue());
+	
+	return gotoURL;
+}
+*/
+
+
+
+
+
+/*
+var ConvertIncidenToCirt = Class.create();
+ConvertIncidenToCirt.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+
+	populateFields : function(){
+		var answer = '';
+		var incNumber = this.getParameter("sysparm_u_incident_number");
+		var gr = new GlideRecord("u_cirt_incident");
+		gr.u_cirt_priority = this.getParameter("sysparm_u_incident_priority");
+		gr.description = incNumber +"\n"+ this.getParameter("sysparm_u_incident_description"); //gr.description +"\n"+ 
+	    gr.u_down_time = this.getParameter("sysparm_opened_at");
+		answer = gr.insert();
+		
+		
+
+		
+	
+		gs.addInfoMessage("GlideAjax called ...");
+		
+		return answer;
+	},
+	type: 'ConvertIncidenToCirt'
+});
+
+
+
+function convertToCirt(){
+	var answer = "";
+	var incNumber = g_form.getValue('number');
+	var priority = g_form.getValue('u_incident_priority');
+	var description = g_form.getValue('description');
+	var down_time = g_form.getValue('opened_at');
+
+	//create ajax object
+	var gaAjax = new GlideAjax('ConvertIncidenToCirt');
+
+	//-------------------------- DATA TO POST ------------------
+	gaAjax.addParam('sysparm_u_incident_number', incNumber);
+	gaAjax.addParam('sysparm_u_incident_priority', priority);
+	gaAjax.addParam('sysparm_u_incident_description', description);
+	gaAjax.addParam('sysparm_opened_at', down_time);
+
+	//---------------------------END POST------------------------------
+	//call gaAjex method
+	gaAjax.addParam('sysparm_name', 'populateFields');
+
+	try {
+
+		gaAjax.getXML(callBack);
+
+	} catch (e) {
+		g_form.addErrorMessage("Error Create CIRT Record UI Action:" + e.message);
+	}
+
+	//TODO: post should return success or fail
+	function callBack(response) {
+		answer = response.responseXML.documentElement.getAttribute("answer");
+		//alert(answer);
+		g_form.addInfoMessage("success : " + answer);	
+
+		window.location.href = "u_cirt_incident" + ".do?sys_id=" + answer;
+	}
+
+}
+
+*/]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-03-10 08:37:28</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>2e6b4cc94ff093003b564ea18110c7e0</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>CopyAttachments</sys_name>
         <sys_overrides/>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
@@ -110,7 +357,7 @@ function onAsync(current) {
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sys_script_2e6b4cc94ff093003b564ea18110c7e0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-03-10 08:37:28</sys_updated_on>
+        <sys_updated_on>2018-03-20 16:33:01</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
